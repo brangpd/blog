@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="utf-8" />
+  <meta name="author" content="花落无声@brangpd" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dockerfile常用项记录 | 花落无声的站点</title>
+  <link rel="stylesheet" href="/blog/css/style.css"/>
+  <link rel="stylesheet" href="/blog/css/chroma.css"/>
+  <link rel="stylesheet" href="/blog/css/fonts.css"/>
+  <link rel="stylesheet" href="/blog/css/to_top_button.css"/>
+  <link rel="stylesheet" href="/blog/abcjs/abcjs-audio.css" />
+<script defer src="/blog/abcjs/abcjs-basic-min.js"></script>
+
+
+</head>
+
+<body>
+  <nav>
+    <ul class="menu">
+      
+      <li><a href="/blog/">主页</a></li>
+      
+      <li><a href="/blog/p/">近期</a></li>
+      
+      <li><a href="/blog/pall/">全部</a></li>
+      
+      <li><a href="/blog/categories/">归档</a></li>
+      
+      <li><a href="/blog/tags/">标签</a></li>
+      
+      <li><a href="/blog/index.xml">订阅</a></li>
+      
+    </ul>
+  </nav>
+
+<article>
+  <header class="article-meta">
+    <section class="title">
+      Dockerfile常用项记录
+    </section>
+
+    
+
+    
+
+    <section>
+      
+      
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+      
+      |
+      <a href="/blog/pid/9">PID/9</a>
+      
+      
+      
+    </section>
+
+  </header>
+
+  
+  <section>标签:
+    
+    
+    
+    
+    
+    <a href="/blog/tags/docker/">docker</a>
+    
+    
+    |
+    
+    
+    
+    <a href="/blog/tags/dockerfile/">Dockerfile</a>
+    
+  </section>
+  
+
+  
+
+  <section class="description">
+    
+  </section>
+  
+  
+  <section>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#dockerfile基础">Dockerfile基础</a>
+      <ul>
+        <li><a href="#命令行构建">命令行构建</a></li>
+        <li><a href="#dockerfile命令格式">Dockerfile命令格式</a></li>
+      </ul>
+    </li>
+    <li><a href="#基本命令">基本命令</a>
+      <ul>
+        <li><a href="#arg">ARG</a></li>
+        <li><a href="#env">ENV</a></li>
+        <li><a href="#from">FROM</a></li>
+        <li><a href="#run">RUN</a></li>
+        <li><a href="#cmd">CMD</a></li>
+        <li><a href="#entrypoint">ENTRYPOINT</a></li>
+        <li><a href="#label">LABEL</a></li>
+        <li><a href="#expose">EXPOSE</a></li>
+        <li><a href="#add">ADD</a></li>
+        <li><a href="#copy">COPY</a></li>
+        <li><a href="#volume">VOLUME</a></li>
+        <li><a href="#user">USER</a></li>
+        <li><a href="#workdir">WORKDIR</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </section>
+  
+  <main>
+    <h1 id="参考"><a href="#%e5%8f%82%e8%80%83" class="header-anchor">参考</a></h1>
+<p><a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a></p>
+
+<h1 id="dockerfile基础"><a href="#dockerfile%e5%9f%ba%e7%a1%80" class="header-anchor">Dockerfile基础</a></h1>
+
+<h2 id="命令行构建"><a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e6%9e%84%e5%bb%ba" class="header-anchor">命令行构建</a></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">docker build -f ./Dockerfile路径 -t 新镜像:版本号 -t 可以放多个 .
+</code></pre></td></tr></table>
+</div>
+</div><p>通过Dockerfile与上下文(文件目录或URL)构建镜像.</p>
+<p>可以写一个<code>.dockerignore</code>文件忽略某些文件, 这些文件不会被<code>ADD</code>或<code>COPY</code>. 写法参考<code>.gitignore</code>.</p>
+
+<h2 id="dockerfile命令格式"><a href="#dockerfile%e5%91%bd%e4%bb%a4%e6%a0%bc%e5%bc%8f" class="header-anchor">Dockerfile命令格式</a></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="c"># 行内注释, 只有#放在行首才表示注释, #在其他地方均不表示注释</span><span class="err">
+</span><span class="err"></span>INSTRUCTION arguments<span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>在最上方可写注释做预处理指令. 预处理指令包括: <code>syntax</code>, 指定语法版本号; <code>escape</code>, 指定转义符号. 略.</p>
+<p>环境变量与shell类似, 以<code>$(v)</code>, <code>$v</code>的形式引用.</p>
+
+<h1 id="基本命令"><a href="#%e5%9f%ba%e6%9c%ac%e5%91%bd%e4%bb%a4" class="header-anchor">基本命令</a></h1>
+
+<h2 id="arg"><a href="#arg" class="header-anchor">ARG</a></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">ARG</span> &lt;name&gt;<span class="o">[=</span>&lt;default value&gt;<span class="o">]</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>定义构建时变量, 可以从<code>docker build</code>的命令行参数传入改变. <code>ARG</code>可以单独使用, 也可以和<a href="#env"><code>ENV</code></a>一起使用, 使用时<code>ENV</code>将取代<code>ARG</code>. 与<code>ENV</code>不同, <code>ARG</code>的可见范围<strong>不是下文所有文本, 只限于当前构建步骤</strong>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">FROM</span><span class="s"> ubuntu</span><span class="err">
+</span><span class="err"></span><span class="k">ARG</span> CONT_IMG_VER<span class="err">
+</span><span class="err"></span><span class="k">ENV</span> CONT_IMG_VER <span class="k">$(</span>CONT_IMG_VER:-v1.0.0<span class="k">)</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$CONT_IMG_VER</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">docker build --build-arg <span class="nv">CONT_IMG_VER</span><span class="o">=</span>v2.0.1 .
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="env"><a href="#env" class="header-anchor">ENV</a></h2>
+<p>语法:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">ENV</span> &lt;key&gt;<span class="o">[=]</span>&lt;value&gt;<span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>写环境变量. 注意此处的环境变量可以直接在<strong>下文所有文本</strong>中以<code>$</code>符号将字面字符串(而非JSON字符串表中的非shell环境下的变量)取代得, 见<a href="#run"><code>RUN</code></a>部分的例子. 另见<a href="#arg"><code>ARG</code></a>对比.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">ENV</span> myName John Doe<span class="err">
+</span><span class="err"></span><span class="k">ENV</span> <span class="nv">myCat</span><span class="o">=</span>fluffy <span class="nv">myDog</span><span class="o">=</span>Rex<span class="se">\ </span>The<span class="se">\ </span>Dog<span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="from"><a href="#from" class="header-anchor">FROM</a></h2>
+<p>语法:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">FROM</span><span class="s"> [--platform=&lt;platform&gt;] &lt;image&gt;[:&lt;tag&gt;|@&lt;digest&gt;] [AS &lt;name&gt;]</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>拉取一个基础镜像, 这是构建新镜像的必要镜像, 必须放在Dockerfile的最上方(在这之前不能有<code>ARG</code>以外的其他命令). 例如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="c"># 这个ARG在FROM之前, 属于构建过程以外的命令, 在FROM之后该变量失效</span><span class="err">
+</span><span class="err"></span><span class="k">ARG</span> <span class="nv">VERSION</span><span class="o">=</span>latest
+<span class="k">FROM</span><span class="s"> busybox:$VERSION</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="run"><a href="#run" class="header-anchor">RUN</a></h2>
+<p>语法:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">RUN</span> &lt;command&gt;<span class="err">
+</span><span class="err"></span><span class="k">RUN</span> <span class="o">[</span><span class="s2">&#34;executable&#34;</span>, <span class="s2">&#34;param1&#34;</span>, <span class="s2">&#34;param2&#34;</span><span class="o">]</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>把基础镜像跑起来并在容器里执行这些命令, 比如在这个基础容器中装一个vim. 例如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">RUN</span> apt install -y vim<span class="err">
+</span><span class="err"></span><span class="c"># 注意, 这句如果直接写[&#34;echo&#34;, &#34;$HOME&#34;], 后面的$HOME不会被当作变量解析, 认为没有shell进程启动.</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> <span class="o">[</span><span class="s2">&#34;/bin/bash&#34;</span>, <span class="s2">&#34;-c&#34;</span>, <span class="s2">&#34;echo </span><span class="nv">$HOME</span><span class="s2">&#34;</span><span class="o">]</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="cmd"><a href="#cmd" class="header-anchor">CMD</a></h2>
+<p>语法:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;executable&#34;</span><span class="p">,</span> <span class="s2">&#34;param1&#34;</span><span class="p">,</span> <span class="s2">&#34;param2&#34;</span><span class="p">]</span><span class="err">
+</span><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;param1&#34;</span><span class="p">,</span> <span class="s2">&#34;param2&#34;</span><span class="p">]</span><span class="err">
+</span><span class="err"></span><span class="k">CMD</span> <span class="nb">command</span> param1 param2<span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>用来指定容器在启动后的默认行为, 一个Dockerfile只能有一句<code>CMD</code>. 三种形式:</p>
+<ol>
+<li>指定程序及其参数, 此时效果等同于<code>ENTRYPOINT</code></li>
+<li>只指定参数, 此时程序(入口点)由<code>ENTRYPOINT</code>指定</li>
+<li>与1类似</li>
+</ol>
+<p>类似于<code>RUN</code>, 如果不通过<code>sh -c</code>的形式启动, 则这些命令并不在shell环境中, 也就无法解析shell变量(包括PATH, 所以所有程序必须是完整路径).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">FROM</span><span class="s"> ubuntu</span><span class="err">
+</span><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;/usr/bin/wc&#34;</span><span class="p">,</span> <span class="s2">&#34;--help&#34;</span><span class="p">]</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="entrypoint"><a href="#entrypoint" class="header-anchor">ENTRYPOINT</a></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&#34;executable&#34;</span><span class="p">,</span> <span class="s2">&#34;param1&#34;</span><span class="p">,</span> <span class="s2">&#34;param2&#34;</span><span class="p">]</span><span class="err">
+</span><span class="err"></span><span class="k">ENTRYPOINT</span> <span class="nb">command</span> param1 param2<span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>指定入口点, 指定绝对出现的参数, 可以通过前文<a href="#cmd"><code>CMD</code></a>指定额外参数.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">FROM</span><span class="s"> ubuntu</span><span class="err">
+</span><span class="err"></span><span class="k">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&#34;top&#34;</span><span class="p">,</span> <span class="s2">&#34;-b&#34;</span><span class="p">]</span><span class="err">
+</span><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;-c&#34;</span><span class="p">]</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="label"><a href="#label" class="header-anchor">LABEL</a></h2>
+<p>语法:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">LABEL</span> &lt;key&gt;<span class="o">=</span>&lt;value&gt; ...<span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>指定一些基础信息, 比如版本号, 描述文档等信息.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">LABEL</span> <span class="nv">version</span><span class="o">=</span><span class="s2">&#34;1.0&#34;</span> <span class="nv">description</span><span class="o">=</span><span class="s2">&#34;...&#34;</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="expose"><a href="#expose" class="header-anchor">EXPOSE</a></h2>
+<p>语法:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">EXPOSE</span><span class="s"> &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>用以暴露端口.</p>
+
+<h2 id="add"><a href="#add" class="header-anchor">ADD</a></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">ADD</span> <span class="o">[</span>--chown<span class="o">=</span>&lt;user&gt;:&lt;group&gt;<span class="o">]</span> &lt;src&gt;... &lt;dest&gt;<span class="err">
+</span><span class="err"></span><span class="k">ADD</span> <span class="o">[</span>--chown<span class="o">=</span>&lt;user&gt;:&lt;group&gt;<span class="o">]</span> <span class="o">[</span><span class="s2">&#34;&lt;src&gt;&#34;</span>,... <span class="s2">&#34;&lt;dest&gt;&#34;</span><span class="o">]</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>其中, <code>&lt;src&gt;</code>为文件路径或URL, <code>&lt;dest&gt;</code>为镜像中的地址.</p>
+<p>当<code>&lt;src&gt;</code>为压缩文件如<code>.tar.xz</code>格式文件时, 会进行解压.</p>
+<p>最好使用<code>COPY</code>, 需要访问网络时用<code>curl</code>和<code>wget</code>代替.</p>
+
+<h2 id="copy"><a href="#copy" class="header-anchor">COPY</a></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">COPY</span> <span class="o">[</span>--chown<span class="o">=</span>&lt;user&gt;:&lt;group&gt;<span class="o">]</span> &lt;src&gt;... &lt;dest&gt;<span class="err">
+</span><span class="err"></span><span class="k">COPY</span> <span class="o">[</span>--chown<span class="o">=</span>&lt;user&gt;:&lt;group&gt;<span class="o">]</span> <span class="o">[</span><span class="s2">&#34;&lt;src&gt;&#34;</span>,... <span class="s2">&#34;&lt;dest&gt;&#34;</span><span class="o">]</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>与<code>ADD</code>基本相同, 但只能接受文件路径, 不能接受URL.</p>
+
+<h2 id="volume"><a href="#volume" class="header-anchor">VOLUME</a></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">VOLUME</span> <span class="p">[</span><span class="s2">&#34;/data&#34;</span><span class="p">]</span><span class="err">
+</span><span class="err"></span><span class="k">VOLUME</span><span class="s"> /var/log /var/db</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="user"><a href="#user" class="header-anchor">USER</a></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">USER</span><span class="s"> &lt;user&gt;[:&lt;group&gt;]</span><span class="err">
+</span><span class="err"></span><span class="k">USER</span><span class="s"> &lt;UID&gt;[:&lt;GID&gt;]</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>指定构建过程在容器本身使用的用户和组.</p>
+
+<h2 id="workdir"><a href="#workdir" class="header-anchor">WORKDIR</a></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">WORKDIR</span><span class="s"> &lt;path&gt;</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>指定构建过程的工作目录.</p>
+  </main>
+</article>
+
+
+<script src="https://beaudar.lipk.org/client.js"
+        repo="brangpd/repo-for-comment"
+        issue-term="9"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+<link rel="stylesheet" href="/blog/katex/katex.min.css" />
+
+
+<script defer src="/blog/katex/katex.min.js"></script>
+
+
+<script defer src="/blog/katex/contrib/auto-render.min.js"></script>
+<script src="/blog/js/katex.js"></script>
+<footer>
+
+© <a href="mailto:brangpd@outlook.com">brangpd</a>
+</footer>
+<button onclick="topFunction()" id="toTopButton">↑↑↑</button>
+<script src="/blog/js/to_top_button.js"></script>
+<script src="/blog/js/custom.js"></script>
+</body>
+</html>

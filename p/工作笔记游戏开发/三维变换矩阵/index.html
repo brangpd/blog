@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="utf-8" />
+  <meta name="author" content="花落无声@brangpd" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>工作笔记：游戏开发：三维变换矩阵 | 花落无声的站点</title>
+  <link rel="stylesheet" href="/blog/css/style.css"/>
+  <link rel="stylesheet" href="/blog/css/chroma.css"/>
+  <link rel="stylesheet" href="/blog/css/fonts.css"/>
+  <link rel="stylesheet" href="/blog/css/to_top_button.css"/>
+  <link rel="stylesheet" href="/blog/abcjs/abcjs-audio.css" />
+<script defer src="/blog/abcjs/abcjs-basic-min.js"></script>
+
+
+</head>
+
+<body>
+  <nav>
+    <ul class="menu">
+      
+      <li><a href="/blog/">主页</a></li>
+      
+      <li><a href="/blog/p/">近期</a></li>
+      
+      <li><a href="/blog/pall/">全部</a></li>
+      
+      <li><a href="/blog/categories/">归档</a></li>
+      
+      <li><a href="/blog/tags/">标签</a></li>
+      
+      <li><a href="/blog/index.xml">订阅</a></li>
+      
+    </ul>
+  </nav>
+
+<article>
+  <header class="article-meta">
+    <section class="title">
+      工作笔记：游戏开发：三维变换矩阵
+    </section>
+
+    
+
+    
+
+    <section>
+      
+      
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+      
+      |
+      <a href="/blog/pid/74">PID/74</a>
+      
+      
+      
+    </section>
+
+  </header>
+
+  
+  <section>标签:
+    
+    
+    
+    
+    
+    <a href="/blog/tags/3d/">3D</a>
+    
+    
+    |
+    
+    
+    
+    <a href="/blog/tags/%E6%95%B0%E5%AD%A6/">数学</a>
+    
+  </section>
+  
+
+  
+  <section>归档:
+    
+    
+    
+    
+    <a href="/blog/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91">工作笔记：游戏开发</a>
+    
+  </section>
+  
+
+  <section class="description">
+    
+  </section>
+  
+  
+  <section>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#齐次坐标">齐次坐标</a></li>
+    <li><a href="#变换-transform">变换 Transform</a>
+      <ul>
+        <li><a href="#恒等-identity">恒等 Identity</a></li>
+        <li><a href="#伸缩-scale">伸缩 Scale</a></li>
+        <li><a href="#平移-translate">平移 Translate</a></li>
+        <li><a href="#旋转-rotate">旋转 Rotate</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </section>
+  
+  <main>
+    
+<h1 id="齐次坐标"><a href="#%e9%bd%90%e6%ac%a1%e5%9d%90%e6%a0%87" class="header-anchor">齐次坐标</a></h1>
+<p>$v = (x, y, z)$，增加额外的维度：$v = (x,y,z,w)$：当$w=0$时表示向量，$w=1$时表示点。</p>
+
+<h1 id="变换-transform"><a href="#%e5%8f%98%e6%8d%a2-transform" class="header-anchor">变换 Transform</a></h1>
+<p>对于点或向量$v$做变换，右乘变换矩阵$W$：$v' = vT$。</p>
+
+<h2 id="恒等-identity"><a href="#%e6%81%92%e7%ad%89-identity" class="header-anchor">恒等 Identity</a></h2>
+<p>$$I = diag(1, 1, 1, 1)$$</p>
+
+<h2 id="伸缩-scale"><a href="#%e4%bc%b8%e7%bc%a9-scale" class="header-anchor">伸缩 Scale</a></h2>
+<p>对$v$在$x,y,z$方向分别伸缩倍数$S_x,S_y,S_z$，$v'=vS$，<br />
+$$S = diag(S_x,S_y,S_z,1)$$</p>
+
+<h2 id="平移-translate"><a href="#%e5%b9%b3%e7%a7%bb-translate" class="header-anchor">平移 Translate</a></h2>
+<p>点$v = (x, y, z, 1)$在$x,y,z$方向分别平移$P_x, P_y, P_z$，$v' = vT = (x',y',z',1)$，其中</p>
+<div>
+$$
+  T = \begin{bmatrix}
+  1 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  P_x & P_y & P_z & 1
+  \end{bmatrix}  
+$$
+</div>
+
+<h2 id="旋转-rotate"><a href="#%e6%97%8b%e8%bd%ac-rotate" class="header-anchor">旋转 Rotate</a></h2>
+<p>对于<em>左手</em>坐标系，向量$\vec{v}$</p>
+<ol>
+<li>沿$x$轴顺时针旋转$\theta$，$\vec{v_x'}=\vec{v}X$，</li>
+</ol>
+<div>
+$$
+      X = \begin{bmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & \cos{\theta} & \sin{\theta} & 0 \\
+        0 & -\sin{\theta} & \cos{\theta} & 0 \\
+        0 & 0 & 0 & 1
+      \end{bmatrix}
+$$
+</div>
+<ol start="2">
+<li>沿$y$轴顺时针旋转$\theta$，$\vec{v_y'}=\vec{v}Y$，</li>
+</ol>
+<div>
+   $$ Y = \begin{bmatrix}
+        \cos{\theta} & 0 & -\sin{\theta} & 0 \\
+        0 & 1 & 0 & 0 \\
+        \sin{\theta} & 0 & \cos{\theta} & 0 \\
+        0 & 0 & 0 & 1
+      \end{bmatrix} $$
+</div>
+<ol start="3">
+<li>沿$z$轴顺时针旋转$\theta$，$\vec{v_z'}=\vec{v}Z$，</li>
+</ol>
+<div>
+$$
+Z = \begin{bmatrix}
+        \cos{\theta} & \sin{\theta} & 0 & 0 \\
+        -\sin{\theta} & \cos{\theta} & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1
+      \end{bmatrix}
+$$
+</div>
+<p>在右手坐标系中，旋转方向正好相反，$\theta'=-\theta$代入上述公式即可。</p>
+
+  </main>
+</article>
+
+
+<script src="https://beaudar.lipk.org/client.js"
+        repo="brangpd/repo-for-comment"
+        issue-term="74"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+<link rel="stylesheet" href="/blog/katex/katex.min.css" />
+
+
+<script defer src="/blog/katex/katex.min.js"></script>
+
+
+<script defer src="/blog/katex/contrib/auto-render.min.js"></script>
+<script src="/blog/js/katex.js"></script>
+<footer>
+
+© <a href="mailto:brangpd@outlook.com">brangpd</a>
+</footer>
+<button onclick="topFunction()" id="toTopButton">↑↑↑</button>
+<script src="/blog/js/to_top_button.js"></script>
+<script src="/blog/js/custom.js"></script>
+</body>
+</html>

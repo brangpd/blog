@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="utf-8" />
+  <meta name="author" content="花落无声@brangpd" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kubernetes Pod | 花落无声的站点</title>
+  <link rel="stylesheet" href="/blog/css/style.css"/>
+  <link rel="stylesheet" href="/blog/css/chroma.css"/>
+  <link rel="stylesheet" href="/blog/css/fonts.css"/>
+  <link rel="stylesheet" href="/blog/css/to_top_button.css"/>
+  <link rel="stylesheet" href="/blog/abcjs/abcjs-audio.css" />
+<script defer src="/blog/abcjs/abcjs-basic-min.js"></script>
+
+
+</head>
+
+<body>
+  <nav>
+    <ul class="menu">
+      
+      <li><a href="/blog/">主页</a></li>
+      
+      <li><a href="/blog/p/">近期</a></li>
+      
+      <li><a href="/blog/pall/">全部</a></li>
+      
+      <li><a href="/blog/categories/">归档</a></li>
+      
+      <li><a href="/blog/tags/">标签</a></li>
+      
+      <li><a href="/blog/index.xml">订阅</a></li>
+      
+    </ul>
+  </nav>
+
+<article>
+  <header class="article-meta">
+    <section class="title">
+      Kubernetes Pod
+    </section>
+
+    
+
+    
+
+    <section>
+      
+      
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+      
+      |
+      <a href="/blog/pid/11">PID/11</a>
+      
+      
+      
+    </section>
+
+  </header>
+
+  
+  <section>标签:
+    
+    
+    
+    
+    
+    <a href="/blog/tags/kubernetes/">kubernetes</a>
+    
+  </section>
+  
+
+  
+
+  <section class="description">
+    
+  </section>
+  
+  
+  <section>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#基础">基础</a></li>
+  </ul>
+</nav>
+  </section>
+  
+  <main>
+    <h1 id="参考"><a href="#%e5%8f%82%e8%80%83" class="header-anchor">参考</a></h1>
+<p><a href="https://kubernetes.io/docs/concepts/workloads/pods/">https://kubernetes.io/docs/concepts/workloads/pods/</a></p>
+
+<h1 id="基础"><a href="#%e5%9f%ba%e7%a1%80" class="header-anchor">基础</a></h1>
+<p>pod是最核心的一个概念. 它是一系列容器的组合体, kubernetes集群中能被部署的最小单元.</p>
+<p>重要配置项示例如下, 更多配置项见<a href="https://kubernetes.io/docs/tasks/configure-pod-container/">Configure Pods and Containers</a>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l">test</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># 初始化阶段的容器, 按顺序启动, 必须通过初始化才能启动下方的containers</span><span class="w">
+</span><span class="w">  </span><span class="nt">initContainers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">init-myservice</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox:1.28</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">init-mydb</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox:1.28</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w"> </span><span class="c"># 请带上版本号</span><span class="w">
+</span><span class="w">    </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w"> </span><span class="c"># Never, Always</span><span class="w">
+</span><span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="c"># 一个单位CPU</span><span class="w">
+</span><span class="w">      </span><span class="c"># = 1000个毫单位CPU</span><span class="w">
+</span><span class="w">      </span><span class="c"># 如果不指定, 或者如果该namespace有默认限制, 使用该限制, 再没有就没上限</span><span class="w">
+</span><span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w"> </span><span class="c"># = 1000m</span><span class="w">
+</span><span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi</span><span class="w">
+</span><span class="w">    </span><span class="nt">limits</span><span class="p">:</span><span class="w"> </span><span class="c"># 最多允许使用的资源</span><span class="w">
+</span><span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l">1500m</span><span class="w"> </span><span class="c"># = 1.5个CPU</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">liveness-port</span><span class="w">
+</span><span class="w">      </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="w">      </span><span class="nt">hostPort</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="w">    </span><span class="c"># 三种探测: liveness, readiness, starup, 其选项完全相同</span><span class="w">
+</span><span class="w">    </span><span class="nt">livenessProbe</span><span class="p">:</span><span class="w"> </span><span class="c"># 存活探测</span><span class="w">
+</span><span class="w">      </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="c"># 直接运行程序作为探测, 返回0表示成功</span><span class="w">
+</span><span class="w">        </span><span class="nt">command</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="l">cat</span><span class="w">
+</span><span class="w">        </span>- <span class="l">/tmp/healthz</span><span class="w">
+</span><span class="w">      </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="c"># 第一次探测前先等5s, 默认0</span><span class="w">
+</span><span class="w">      </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="c"># 每隔5s探测一次, 默认10, 最小1</span><span class="w">
+</span><span class="w">      </span><span class="nt">timeoutSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c"># 探测超时时间, 默认1</span><span class="w">
+</span><span class="w">      </span><span class="nt">successThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c"># 最少要连续多少次成功才算探测成功, 默认1, 最小1</span><span class="w">
+</span><span class="w">      </span><span class="nt">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="c"># 最少要连续多少次失败才能探测失败, 默认3, 最小1</span><span class="w">
+</span><span class="w">    </span><span class="nt">readinessProbe</span><span class="p">:</span><span class="w"> </span><span class="c"># 就绪探测</span><span class="w">
+</span><span class="w">      </span><span class="nt">tcpSocket</span><span class="p">:</span><span class="w"> </span><span class="c"># 这个port能否通</span><span class="w">
+</span><span class="w">        </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="w">      </span><span class="nt">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">      </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span><span class="w">    </span><span class="nt">startupProbe</span><span class="p">:</span><span class="w"> </span><span class="c"># 启动探测, 对于某些启动很慢的情况, 这里最坏会等300s</span><span class="w">
+</span><span class="w">      </span><span class="nt">httpGet</span><span class="p">:</span><span class="w"> </span><span class="c"># GET状态码为2xx或3xx表示成功</span><span class="w">
+</span><span class="w">        </span><span class="nt">httpHeaders</span><span class="p">:</span><span class="w"> </span><span class="c"># HTTP头部数组</span><span class="w">
+</span><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">name</span><span class="w">
+</span><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">value</span><span class="w">
+</span><span class="w">        </span><span class="nt">scheme</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w"> </span><span class="c"># 或HTTPS</span><span class="w">
+</span><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/healthz</span><span class="w">
+</span><span class="w">        </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l">liveness-port</span><span class="w"> </span><span class="c"># 整数, 或是上方ports一项包含的某个名字</span><span class="w">
+</span><span class="w">      </span><span class="nt">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span><span class="w">      </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w"> </span><span class="c"># 见存储部分内容</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">storage</span><span class="w">
+</span><span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/data</span><span class="w">
+</span><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">storage</span><span class="w">
+</span><span class="w">    </span><span class="nt">emptyDir</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w">  </span><span class="c"># 此选项用于设置从私有仓库拉取镜像</span><span class="w">
+</span><span class="w">  </span><span class="c"># 详见 https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/</span><span class="w">
+</span><span class="w"></span><span class="c"># imagePullSecrets:</span><span class="w">
+</span><span class="w"></span><span class="c"># - name: regcred</span><span class="w">
+</span><span class="w">  </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w"> </span><span class="c"># 拥有下列标签的node才有可能被选中放这个pod</span><span class="w">
+</span><span class="w">    </span><span class="nt">disktype</span><span class="p">:</span><span class="w"> </span><span class="l">ssd</span><span class="w">
+</span><span class="w">  </span><span class="nt">nodeName</span><span class="p">:</span><span class="w"> </span><span class="l">kube2</span><span class="w"> </span><span class="c"># 或者直接指定node名称</span><span class="w">
+</span><span class="w">  </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Never</span><span class="w"> </span><span class="c"># 默认Always, 或OnFailure</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div>
+  </main>
+</article>
+
+
+<script src="https://beaudar.lipk.org/client.js"
+        repo="brangpd/repo-for-comment"
+        issue-term="11"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+<link rel="stylesheet" href="/blog/katex/katex.min.css" />
+
+
+<script defer src="/blog/katex/katex.min.js"></script>
+
+
+<script defer src="/blog/katex/contrib/auto-render.min.js"></script>
+<script src="/blog/js/katex.js"></script>
+<footer>
+
+© <a href="mailto:brangpd@outlook.com">brangpd</a>
+</footer>
+<button onclick="topFunction()" id="toTopButton">↑↑↑</button>
+<script src="/blog/js/to_top_button.js"></script>
+<script src="/blog/js/custom.js"></script>
+</body>
+</html>

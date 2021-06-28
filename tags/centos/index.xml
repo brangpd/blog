@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CentOS on 花落无声的站点</title>
+    <link>/blog/tags/centos/</link>
+    <description>Recent content in CentOS on 花落无声的站点</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Sun, 02 Aug 2020 18:16:52 +0800</lastBuildDate><atom:link href="/blog/tags/centos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CentOS 8 NFS配置</title>
+      <link>/blog/p/2020/08/02/centos-8-nfs%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sun, 02 Aug 2020 18:16:52 +0800</pubDate>
+      
+      <guid>/blog/p/2020/08/02/centos-8-nfs%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;h1 id=&#34;安装nfs&#34;&gt;&lt;a href=&#34;#%e5%ae%89%e8%a3%85nfs&#34; class=&#34;header-anchor&#34;&gt;安装NFS&lt;/a&gt;&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;yum -y install nfs-utils
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h1 id=&#34;服务端&#34;&gt;&lt;a href=&#34;#%e6%9c%8d%e5%8a%a1%e7%ab%af&#34; class=&#34;header-anchor&#34;&gt;服务端&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;修改&lt;code&gt;/etc/exports&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plain&#34; data-lang=&#34;plain&#34;&gt;/data *(rw,sync,no_subtree_check,no_root_squash)
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;说明:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;rw&lt;/code&gt;/&lt;em&gt;&lt;code&gt;ro&lt;/code&gt;&lt;/em&gt;: 读写/只读&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sync&lt;/code&gt;/&lt;em&gt;&lt;code&gt;async&lt;/code&gt;&lt;/em&gt;: 同步/异步&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;no_subtree_check&lt;/code&gt;/&lt;code&gt;subtree_check&lt;/code&gt;: 用途未知&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;no_root_squash&lt;/code&gt;/&lt;code&gt;root_squash&lt;/code&gt;: 对于root用户登录是否直接转成匿名用户&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes kubeadm 开局配置</title>
+      <link>/blog/p/2020/08/02/kubernetes-kubeadm-%E5%BC%80%E5%B1%80%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sun, 02 Aug 2020 16:10:41 +0800</pubDate>
+      
+      <guid>/blog/p/2020/08/02/kubernetes-kubeadm-%E5%BC%80%E5%B1%80%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;h1 id=&#34;目前版本&#34;&gt;&lt;a href=&#34;#%e7%9b%ae%e5%89%8d%e7%89%88%e6%9c%ac&#34; class=&#34;header-anchor&#34;&gt;目前版本&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;CentOS:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;uname -a 
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;pre&gt;&lt;code class=&#34;language-o&#34; data-lang=&#34;o&#34;&gt;Linux kube1.localdomain 4.18.0-193.el8.x86_64 #1 SMP Fri May 8 10:59:10 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Kubernetes:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;kubeadm version
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;pre&gt;&lt;code class=&#34;language-o&#34; data-lang=&#34;o&#34;&gt;kubeadm version: &amp;amp;version.Info{Major:&amp;quot;1&amp;quot;, Minor:&amp;quot;18&amp;quot;, GitVersion:&amp;quot;v1.18.6&amp;quot;, GitCommit:&amp;quot;dff82dc0de47299ab66c83c626e08b245ab19037&amp;quot;, GitTreeState:&amp;quot;clean&amp;quot;, BuildDate:&amp;quot;2020-07-15T16:56:34Z&amp;quot;, GoVersion:&amp;quot;go1.13.9&amp;quot;, Compiler:&amp;quot;gc&amp;quot;, Platform:&amp;quot;linux/amd64&amp;quot;}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>CentOS 8 网络配置文件</title>
+      <link>/blog/p/2020/08/02/centos-8-%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 02 Aug 2020 15:23:05 +0800</pubDate>
+      
+      <guid>/blog/p/2020/08/02/centos-8-%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
+      <description>&lt;p&gt;在使用CentOS 8作为服务器时修改网络配置的方法.&lt;/p&gt;
+&lt;p&gt;配置文件见于&lt;code&gt;/etc/sysconfig/network-scripts/*&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;配置文档示例:&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

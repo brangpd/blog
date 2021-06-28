@@ -1,0 +1,250 @@
+:root {
+  --block-color: #ddfff2;
+  --list-block-hover-color: #f5f5f5;
+  --a-hover-background-color: #eeeeee;
+  --body-background-color: #ffffff;
+  --body-color: #000000;
+  --a-color: #1e6460;
+  --a-visited-color: #444444;
+  --main-h1-background-color: #ddfff2;
+  --strong-background-color: #76ffa2;
+  --strong-color: #000000;
+  --em-color: orangered;
+  --code-font-size: 90%;
+}
+
+/* Define colours for dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --block-color: #303530;
+    --list-block-hover-color:#303530;
+    --a-hover-background-color: #555555;
+    --body-background-color: #222222;
+    --body-color: #eeeeee;
+    --a-color: #3eff88;
+    --a-visited-color: #999999;
+    --main-h1-background-color: #303530;
+    --strong-background-color: #ffffff;
+    --strong-color: #000000;
+    --em-color: orange;
+  }
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 1.5em;
+  background-color: var(--body-background-color);
+  color: var(--body-color);
+}
+
+/* header and footer areas */
+.menu { padding: 0; }
+.menu li { display: inline-block; }
+.article-meta, .menu a {
+  /* text-decoration: none; */
+  background: var(--block-color);
+  padding: 5px;
+  margin: 5px 0px;
+  border-radius: 5px;
+}
+.menu, .article-meta, footer { text-align: center; }
+.title { 
+  font-size: 1.5em;
+  /* margin: 8px; */
+}
+.subtitle {
+  font-size: 1.4em;
+  color: #666;
+  /* padding-top:7px */
+}
+/* .description {
+  margin: 8px;
+} */
+.previous-article {
+  float: left;
+}
+.next-article {
+  float: right;
+}
+.list-block {
+  padding: 15px 10px;
+  border-top: dotted medium gray;
+}
+.list-block:hover {
+  background-color: var(--list-block-hover-color);
+}
+.list-title-line {
+  font-weight: bold;
+}
+.list-title, .list-subtitle { 
+  font-size: 1.5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.list-subtitle {
+  color: #666; 
+}
+.list-summary {
+  border-radius: 5px;
+}
+a {
+  text-decoration: none;
+  color: var(--a-color) !important;
+}
+main a {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+}
+a:hover {
+  background-color: var(--a-hover-background-color);
+}
+main a:visited {
+  color: var(--a-visited-color);
+}
+hr {
+  border-style: dashed;
+  color: #999999;
+}
+
+/* code */
+/* The border would make the highlight rendered result ugly. */
+.highlight {
+  margin: 5px 0px;
+}
+pre {
+  overflow-x: auto;
+  line-height: 20px;
+}
+code { 
+  background: var(--block-color);
+  margin: 5px;
+}
+pre, code {
+  font-size: var(--code-font-size);
+}
+pre code {
+  background: initial;
+  font-size: var(--code-font-size);  
+  margin: initial;
+}
+samp {
+  white-space: pre-wrap;
+  font-size: var(--code-font-size);
+}
+
+/* pagination */
+.pagination { 
+  text-align: center;
+  padding-inline-start: 0;
+  /* margin-block-start: 0; */
+}
+.pagination li { display: inline; }
+.pagination a { padding: 0 .2em; }
+.pagination .page-item.disabled a {
+  color: unset;
+}
+.pagination .page-item.active a {
+  background-color: #999;
+}
+
+.katex {
+  font-size: 1em !important;
+}
+.katex .base {
+  /* overflow-wrap: normal !important; */
+  white-space: normal !important;
+  /* display: block !important; */
+  width: auto !important;
+}
+
+/* misc elements */
+img, iframe, video { max-width: 100%; }
+main { hyphens: auto; }
+blockquote {
+  background: var(--block-color);
+  border-left: 5px solid #ccc;
+  /* padding: 0.5% 1% 0.5%; */
+  /* border: 1%; */
+  /* margin: 10px; */
+}
+
+table {
+  margin: auto;
+  /* border-top: 1px solid; */
+  /* border-bottom: 1px solid #666; */
+  /* margin: 10px 0; */
+  border-collapse: collapse;
+}
+/* table thead th { border-bottom: 1px solid #ddd; } */
+th, td { 
+  /* padding: 0px 10px; */
+  /* border-bottom: 1px solid #ddd; */
+}
+/* thead, tfoot, tr:nth-child(even) { background: var(--block-color); } */
+
+main h1 {
+  background-color: var(--main-h1-background-color);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+
+/*
+In CJK language, italic font style is not regular and very hard to feel its 'emphasis'.
+My posts are almost Chinese, so I apply the color to emphasize text.
+(Underline is not rendered in iPad, why?)
+Use meaningless <i> to produce italic text instead.
+*/
+em {
+  /* text-decoration: solid underline red !important; */
+  color: var(--em-color);
+  font-style: inherit !important;
+}
+/*
+Strong is rendered as bold text on default which is ambiguous and easily mistaken for headers.
+Use <b> to produce bold text instead.
+*/
+strong {
+  font-weight: unset !important;
+  background-color: var(--strong-background-color) !important;
+  color: var(--strong-color) !important;
+}
+del {
+  text-decoration: line-through double;
+}
+
+#TableOfContents {
+  border-top: medium gray dotted;
+  border-bottom: medium gray dotted;
+  margin: 1em 0em;
+}
+
+article .header-anchor {
+  text-decoration-line: none;
+}
+article .header-anchor:hover span {
+  visibility: visible !important;
+}
+
+summary {
+  color: var(--a-color);
+  cursor: pointer;
+}
+
+audio {
+  width: 100%;
+  height: 30px;
+}
+
+.bilibili, .bilibili-a {
+  width: 100%;
+  height: 550px;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .bilibili, .bilibili-a {
+    width: 100%;
+    height: 250px;
+  }
+}

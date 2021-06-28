@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>古典日语 on 花落无声的站点</title>
+    <link>/blog/categories/%E5%8F%A4%E5%85%B8%E6%97%A5%E8%AF%AD/</link>
+    <description>Recent content in 古典日语 on 花落无声的站点</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Mon, 31 Aug 2020 14:50:21 +0800</lastBuildDate><atom:link href="/blog/categories/%E5%8F%A4%E5%85%B8%E6%97%A5%E8%AF%AD/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>古典日语：汉文训读</title>
+      <link>/blog/p/%E5%8F%A4%E5%85%B8%E6%97%A5%E8%AF%AD/%E6%B1%89%E6%96%87%E8%AE%AD%E8%AF%BB/</link>
+      <pubDate>Mon, 31 Aug 2020 14:50:21 +0800</pubDate>
+      
+      <guid>/blog/p/%E5%8F%A4%E5%85%B8%E6%97%A5%E8%AF%AD/%E6%B1%89%E6%96%87%E8%AE%AD%E8%AF%BB/</guid>
+      <description>参考 漢文訓読 基础 句读点使用：句点“。”，读点“、”，并列点“・”。可以全用句点。横写时写在字右下方，纵写时写在字右下方。 返点使用：包含レ点，一二（三）点，上（中）下点，甲乙（丙）点，天地（人）点等。横</description>
+    </item>
+    
+    <item>
+      <title>古典日语：基本活用</title>
+      <link>/blog/p/%E5%8F%A4%E5%85%B8%E6%97%A5%E8%AF%AD/%E5%9F%BA%E6%9C%AC%E6%B4%BB%E7%94%A8/</link>
+      <pubDate>Sun, 30 Aug 2020 20:44:01 +0800</pubDate>
+      
+      <guid>/blog/p/%E5%8F%A4%E5%85%B8%E6%97%A5%E8%AF%AD/%E5%9F%BA%E6%9C%AC%E6%B4%BB%E7%94%A8/</guid>
+      <description>参考 活用#文語体 说明 文中出现的活用类型依次为：未然形、连用形、终止形、连体形、已然形、命令形。 所谓活用专指日语的变位，变格指不规则。 形容词 形容词存在两种活用，称为本活用和补助活用，补助活用源于くあり的</description>
+    </item>
+    
+  </channel>
+</rss>

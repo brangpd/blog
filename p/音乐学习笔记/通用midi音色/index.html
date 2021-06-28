@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="utf-8" />
+  <meta name="author" content="花落无声@brangpd" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>音乐学习笔记：通用MIDI音色 | 花落无声的站点</title>
+  <link rel="stylesheet" href="/blog/css/style.css"/>
+  <link rel="stylesheet" href="/blog/css/chroma.css"/>
+  <link rel="stylesheet" href="/blog/css/fonts.css"/>
+  <link rel="stylesheet" href="/blog/css/to_top_button.css"/>
+  <link rel="stylesheet" href="/blog/abcjs/abcjs-audio.css" />
+<script defer src="/blog/abcjs/abcjs-basic-min.js"></script>
+
+
+</head>
+
+<body>
+  <nav>
+    <ul class="menu">
+      
+      <li><a href="/blog/">主页</a></li>
+      
+      <li><a href="/blog/p/">近期</a></li>
+      
+      <li><a href="/blog/pall/">全部</a></li>
+      
+      <li><a href="/blog/categories/">归档</a></li>
+      
+      <li><a href="/blog/tags/">标签</a></li>
+      
+      <li><a href="/blog/index.xml">订阅</a></li>
+      
+    </ul>
+  </nav>
+
+<article>
+  <header class="article-meta">
+    <section class="title">
+      音乐学习笔记：通用MIDI音色
+    </section>
+
+    
+
+    
+
+    <section>
+      
+      
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+      
+      |
+      <a href="/blog/pid/56">PID/56</a>
+      
+      
+      
+    </section>
+
+  </header>
+
+  
+  <section>标签:
+    
+    
+    
+    
+    
+    <a href="/blog/tags/%E9%9F%B3%E4%B9%90/">音乐</a>
+    
+  </section>
+  
+
+  
+  <section>归档:
+    
+    
+    
+    
+    <a href="/blog/categories/%E9%9F%B3%E4%B9%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0">音乐学习笔记</a>
+    
+  </section>
+  
+
+  <section class="description">
+    MIDI音色列表及试听。
+  </section>
+  
+  
+  <section>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#钢琴">钢琴</a>
+      <ul>
+        <li><a href="#0-acoustic-grand-piano-大钢琴声学钢琴">0 Acoustic Grand Piano 大钢琴（声学钢琴）</a></li>
+        <li><a href="#1-bright-acoustic-piano-明亮的钢琴">1 Bright Acoustic Piano 明亮的钢琴</a></li>
+        <li><a href="#2-electric-grand-piano-电钢琴">2 Electric Grand Piano 电钢琴</a></li>
+        <li><a href="#3-honky-tonk-piano-酒吧钢琴">3 Honky-tonk Piano 酒吧钢琴</a></li>
+        <li><a href="#4-rhodes-piano-柔和的电钢琴">4 Rhodes Piano 柔和的电钢琴</a></li>
+        <li><a href="#5-chorused-piano-加合唱效果的电钢琴">5 Chorused Piano 加合唱效果的电钢琴</a></li>
+        <li><a href="#6-harpsichord-羽管键琴拨弦古钢琴">6 Harpsichord 羽管键琴（拨弦古钢琴）</a></li>
+        <li><a href="#7-clavichord-科拉维科特琴击弦古钢琴">7 Clavichord 科拉维科特琴（击弦古钢琴）</a></li>
+      </ul>
+    </li>
+    <li><a href="#色彩打击乐器">色彩打击乐器</a>
+      <ul>
+        <li><a href="#8-celesta-钢片琴">8 Celesta 钢片琴</a></li>
+        <li><a href="#9-glockenspiel-钟琴">9 Glockenspiel 钟琴</a></li>
+        <li><a href="#10-music-box-八音盒">10 Music box 八音盒</a></li>
+        <li><a href="#11-vibraphone-颤音琴">11 Vibraphone 颤音琴</a></li>
+        <li><a href="#12-marimba-马林巴">12 Marimba 马林巴</a></li>
+        <li><a href="#13-xylophone-木琴">13 Xylophone 木琴</a></li>
+        <li><a href="#14-tubular-bells-管钟">14 Tubular Bells 管钟</a></li>
+        <li><a href="#15-dulcimer-大扬琴">15 Dulcimer 大扬琴</a></li>
+      </ul>
+    </li>
+    <li><a href="#风琴">风琴</a>
+      <ul>
+        <li><a href="#16-hammond-organ-击杆风琴">16 Hammond Organ 击杆风琴</a></li>
+        <li><a href="#17-percussive-organ-打击式风琴">17 Percussive Organ 打击式风琴</a></li>
+        <li><a href="#18-rock-organ-摇滚风琴">18 Rock Organ 摇滚风琴</a></li>
+        <li><a href="#19-church-organ-教堂风琴">19 Church Organ 教堂风琴</a></li>
+        <li><a href="#20-reed-organ-簧管风琴">20 Reed Organ 簧管风琴</a></li>
+        <li><a href="#21-accordian-手风琴">21 Accordian 手风琴</a></li>
+        <li><a href="#22-harmonica-口琴">22 Harmonica 口琴</a></li>
+        <li><a href="#23-tango-accordian-探戈手风琴">23 Tango Accordian 探戈手风琴</a></li>
+      </ul>
+    </li>
+    <li><a href="#吉他">吉他</a>
+      <ul>
+        <li><a href="#24-acoustic-guitar-nylon-尼龙弦吉他">24 Acoustic Guitar (nylon) 尼龙弦吉他</a></li>
+        <li><a href="#25-acoustic-guitar-steel-钢弦吉他">25 Acoustic Guitar (steel) 钢弦吉他</a></li>
+        <li><a href="#26-electric-guitar-jazz-爵士电吉他">26 Electric Guitar (jazz) 爵士电吉他</a></li>
+        <li><a href="#27-electric-guitar-clean-清音电吉他">27 Electric Guitar (clean) 清音电吉他</a></li>
+        <li><a href="#28-electric-guitar-muted-闷音电吉他">28 Electric Guitar (muted) 闷音电吉他</a></li>
+        <li><a href="#29-overdriven-guitar-加驱动效果的电吉他">29 Overdriven Guitar 加驱动效果的电吉他</a></li>
+        <li><a href="#30-distortion-guitar-加失真效果的电吉他">30 Distortion Guitar 加失真效果的电吉他</a></li>
+        <li><a href="#31-guitar-harmonics-吉他和音">31 Guitar Harmonics 吉他和音</a></li>
+      </ul>
+    </li>
+    <li><a href="#贝司">贝司</a>
+      <ul>
+        <li><a href="#32-acoustic-bass-大贝司声学贝司">32 Acoustic Bass 大贝司（声学贝司）</a></li>
+        <li><a href="#33-electric-bassfinger-电贝司指弹">33 Electric Bass(finger) 电贝司（指弹）</a></li>
+        <li><a href="#34-electric-bass-pick-电贝司拨片">34 Electric Bass (pick) 电贝司（拨片）</a></li>
+        <li><a href="#35-fretless-bass-无品贝司">35 Fretless Bass 无品贝司</a></li>
+        <li><a href="#36-slap-bass-1-掌击bass-1">36 Slap Bass 1 掌击Bass 1</a></li>
+        <li><a href="#37-slap-bass-2-掌击bass-2">37 Slap Bass 2 掌击Bass 2</a></li>
+        <li><a href="#38-synth-bass-1-电子合成bass-1">38 Synth Bass 1 电子合成Bass 1</a></li>
+        <li><a href="#39-synth-bass-2-电子合成bass-2">39 Synth Bass 2 电子合成Bass 2</a></li>
+      </ul>
+    </li>
+    <li><a href="#弦乐">弦乐</a>
+      <ul>
+        <li><a href="#40-violin-小提琴">40 Violin 小提琴</a></li>
+        <li><a href="#41-viola-中提琴">41 Viola 中提琴</a></li>
+        <li><a href="#42-cello-大提琴">42 Cello 大提琴</a></li>
+        <li><a href="#43-contrabass-低音大提琴">43 Contrabass 低音大提琴</a></li>
+        <li><a href="#44-tremolo-strings-弦乐群颤音音色">44 Tremolo Strings 弦乐群颤音音色</a></li>
+        <li><a href="#45-pizzicato-strings-弦乐群拨弦音色">45 Pizzicato Strings 弦乐群拨弦音色</a></li>
+        <li><a href="#46-orchestral-harp-竖琴">46 Orchestral Harp 竖琴</a></li>
+        <li><a href="#47-timpani-定音鼓">47 Timpani 定音鼓</a></li>
+      </ul>
+    </li>
+    <li><a href="#合奏合唱">合奏/合唱</a>
+      <ul>
+        <li><a href="#48-string-ensemble-1-弦乐合奏音色1">48 String Ensemble 1 弦乐合奏音色1</a></li>
+        <li><a href="#49-string-ensemble-2-弦乐合奏音色2">49 String Ensemble 2 弦乐合奏音色2</a></li>
+        <li><a href="#50-synth-strings-1-合成弦乐合奏音色1">50 Synth Strings 1 合成弦乐合奏音色1</a></li>
+        <li><a href="#51-synth-strings-2-合成弦乐合奏音色2">51 Synth Strings 2 合成弦乐合奏音色2</a></li>
+        <li><a href="#52-choir-aahs-人声合唱啊">52 Choir Aahs 人声合唱“啊”</a></li>
+        <li><a href="#53-voice-oohs-人声嘟">53 Voice Oohs 人声“嘟”</a></li>
+        <li><a href="#54-synth-voice-合成人声">54 Synth Voice 合成人声</a></li>
+        <li><a href="#55-orchestra-hit-管弦乐敲击齐奏">55 Orchestra Hit 管弦乐敲击齐奏</a></li>
+      </ul>
+    </li>
+    <li><a href="#铜管">铜管</a>
+      <ul>
+        <li><a href="#56-trumpet-小号">56 Trumpet 小号</a></li>
+        <li><a href="#57-trombone-长号">57 Trombone 长号</a></li>
+        <li><a href="#58-tuba-大号">58 Tuba 大号</a></li>
+        <li><a href="#59-muted-trumpet-加弱音器小号">59 Muted Trumpet 加弱音器小号</a></li>
+        <li><a href="#60-french-horn-法国号圆号">60 French Horn 法国号（圆号）</a></li>
+        <li><a href="#61-brass-section-铜管组铜管乐器合奏音色">61 Brass Section 铜管组（铜管乐器合奏音色）</a></li>
+        <li><a href="#62-synth-brass-1-合成铜管音色1">62 Synth Brass 1 合成铜管音色1</a></li>
+        <li><a href="#63-synth-brass-2-合成铜管音色2">63 Synth Brass 2 合成铜管音色2</a></li>
+      </ul>
+    </li>
+    <li><a href="#簧管">簧管</a>
+      <ul>
+        <li><a href="#64-soprano-sax--高音萨克斯">64 Soprano Sax  高音萨克斯</a></li>
+        <li><a href="#65-alto-sax-中音萨克斯">65 Alto Sax 中音萨克斯</a></li>
+        <li><a href="#66-tenor-sax-次中音萨克斯">66 Tenor Sax 次中音萨克斯</a></li>
+        <li><a href="#67-baritone-sax-上低音萨克斯">67 Baritone Sax 上低音萨克斯</a></li>
+        <li><a href="#68-oboe-双簧管">68 Oboe 双簧管</a></li>
+        <li><a href="#69-english-horn-英国管">69 English Horn 英国管</a></li>
+        <li><a href="#70-bassoon-巴松大管">70 Bassoon 巴松（大管）</a></li>
+        <li><a href="#71-clarinet-单簧管黑管">71 Clarinet 单簧管（黑管）</a></li>
+      </ul>
+    </li>
+    <li><a href="#笛">笛</a>
+      <ul>
+        <li><a href="#72-piccolo-短笛">72 Piccolo 短笛</a></li>
+        <li><a href="#73-flute-长笛">73 Flute 长笛</a></li>
+        <li><a href="#74-recorder-竖笛">74 Recorder 竖笛</a></li>
+        <li><a href="#75-pan-flute-排箫">75 Pan Flute 排箫</a></li>
+        <li><a href="#76-bottle-blow">76 Bottle Blow</a></li>
+        <li><a href="#77-shakuhachi-日本尺八">77 Shakuhachi 日本尺八</a></li>
+        <li><a href="#78-whistle-口哨声">78 Whistle 口哨声</a></li>
+        <li><a href="#79-ocarina-奥卡雷那">79 Ocarina 奥卡雷那</a></li>
+      </ul>
+    </li>
+    <li><a href="#合成主音">合成主音</a>
+      <ul>
+        <li><a href="#80-lead-1-square--合成主音1方波">80 Lead 1 (square)  合成主音1（方波）</a></li>
+        <li><a href="#81-lead-2-sawtooth-合成主音2锯齿波">81 Lead 2 (sawtooth) 合成主音2（锯齿波）</a></li>
+        <li><a href="#82-lead-3-caliope-lead-合成主音3">82 Lead 3 (caliope lead) 合成主音3</a></li>
+        <li><a href="#83-lead-4-chiff-lead-合成主音4">83 Lead 4 (chiff lead) 合成主音4</a></li>
+        <li><a href="#84-lead-5-charang--合成主音5">84 Lead 5 (charang)  合成主音5</a></li>
+        <li><a href="#85-lead-6-voice-合成主音6人声">85 Lead 6 (voice) 合成主音6（人声）</a></li>
+        <li><a href="#86-lead-7-fifths-合成主音7平行五度">86 Lead 7 (fifths) 合成主音7（平行五度）</a></li>
+        <li><a href="#87-lead-8-basslead合成主音8贝司加主音">87 Lead 8 (bass+lead)合成主音8（贝司加主音）</a></li>
+      </ul>
+    </li>
+    <li><a href="#合成音色">合成音色</a>
+      <ul>
+        <li><a href="#88-pad-1-new-age-合成音色1新世纪">88 Pad 1 (new age) 合成音色1（新世纪）</a></li>
+        <li><a href="#89-pad-2-warm--合成音色2温暖">89 Pad 2 (warm)  合成音色2（温暖）</a></li>
+        <li><a href="#90-pad-3-polysynth--合成音色3">90 Pad 3 (polysynth)  合成音色3</a></li>
+        <li><a href="#91-pad-4-choir-合成音色4合唱">91 Pad 4 (choir) 合成音色4（合唱）</a></li>
+        <li><a href="#92-pad-5-bowed-合成音色5">92 Pad 5 (bowed) 合成音色5</a></li>
+        <li><a href="#93-pad-6-metallic-合成音色6金属声">93 Pad 6 (metallic) 合成音色6（金属声）</a></li>
+        <li><a href="#94-pad-7-halo--合成音色7光环">94 Pad 7 (halo)  合成音色7（光环）</a></li>
+        <li><a href="#95-pad-8-sweep-合成音色8">95 Pad 8 (sweep) 合成音色8</a></li>
+      </ul>
+    </li>
+    <li><a href="#合成效果">合成效果</a>
+      <ul>
+        <li><a href="#96-fx-1-rain-合成效果1雨声">96 FX 1 (rain) 合成效果1雨声</a></li>
+        <li><a href="#97-fx-2-soundtrack-合成效果2音轨">97 FX 2 (soundtrack) 合成效果2音轨</a></li>
+        <li><a href="#98-fx-3-crystal-合成效果3水晶">98 FX 3 (crystal) 合成效果3水晶</a></li>
+        <li><a href="#99-fx-4-atmosphere-合成效果4大气">99 FX 4 (atmosphere) 合成效果4大气</a></li>
+        <li><a href="#100-fx-5-brightness-合成效果5明亮">100 FX 5 (brightness) 合成效果5明亮</a></li>
+        <li><a href="#101-fx-6-goblins-合成效果6鬼怪">101 FX 6 (goblins) 合成效果6鬼怪</a></li>
+        <li><a href="#102-fx-7-echoes--合成效果7回声">102 FX 7 (echoes)  合成效果7回声</a></li>
+        <li><a href="#103-fx-8-sci-fi--合成效果8科幻">103 FX 8 (sci-fi)  合成效果8科幻</a></li>
+      </ul>
+    </li>
+    <li><a href="#民间乐器">民间乐器</a>
+      <ul>
+        <li><a href="#104-sitar-西塔尔印度">104 Sitar 西塔尔（印度）</a></li>
+        <li><a href="#105-banjo-班卓琴美洲">105 Banjo 班卓琴（美洲）</a></li>
+        <li><a href="#106-shamisen-三昧线日本">106 Shamisen 三昧线（日本）</a></li>
+        <li><a href="#107-koto-十三弦筝日本">107 Koto 十三弦筝（日本）</a></li>
+        <li><a href="#108-kalimba-卡林巴">108 Kalimba 卡林巴</a></li>
+        <li><a href="#109-bagpipe-风笛">109 Bagpipe 风笛</a></li>
+        <li><a href="#110-fiddle-民族提琴">110 Fiddle 民族提琴</a></li>
+        <li><a href="#111-shanai-山奈">111 Shanai 山奈</a></li>
+      </ul>
+    </li>
+    <li><a href="#打击乐器">打击乐器</a>
+      <ul>
+        <li><a href="#112-tinkle-bell-叮当铃">112 Tinkle Bell 叮当铃</a></li>
+        <li><a href="#113-agogo">113 Agogo</a></li>
+        <li><a href="#114-steel-drums-钢鼓">114 Steel Drums 钢鼓</a></li>
+        <li><a href="#115-woodblock-木鱼">115 Woodblock 木鱼</a></li>
+        <li><a href="#116-taiko-drum-太鼓">116 Taiko Drum 太鼓</a></li>
+        <li><a href="#117-melodic-tom-通通鼓">117 Melodic Tom 通通鼓</a></li>
+        <li><a href="#118-synth-drum--合成鼓">118 Synth Drum  合成鼓</a></li>
+        <li><a href="#119-reverse-cymbal-铜钹">119 Reverse Cymbal 铜钹</a></li>
+      </ul>
+    </li>
+    <li><a href="#sound-effects-声音效果">Sound Effects 声音效果</a>
+      <ul>
+        <li><a href="#120-guitar-fret-noise-吉他换把杂音">120 Guitar Fret Noise 吉他换把杂音</a></li>
+        <li><a href="#121-breath-noise-呼吸声">121 Breath Noise 呼吸声</a></li>
+        <li><a href="#122-seashore-海浪声">122 Seashore 海浪声</a></li>
+        <li><a href="#123-bird-tweet-鸟鸣">123 Bird Tweet 鸟鸣</a></li>
+        <li><a href="#124-telephone-ring-电话铃">124 Telephone Ring 电话铃</a></li>
+        <li><a href="#125-helicopter-直升机">125 Helicopter 直升机</a></li>
+        <li><a href="#126-applause-鼓掌声">126 Applause 鼓掌声</a></li>
+        <li><a href="#127-gunshot-枪声">127 Gunshot 枪声</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </section>
+  
+  <main>
+    
+<h1 id="钢琴"><a href="#%e9%92%a2%e7%90%b4" class="header-anchor">钢琴</a></h1>
+
+<h2 id="0-acoustic-grand-piano-大钢琴声学钢琴"><a href="#0-acoustic-grand-piano-%e5%a4%a7%e9%92%a2%e7%90%b4%e5%a3%b0%e5%ad%a6%e9%92%a2%e7%90%b4" class="header-anchor">0 Acoustic Grand Piano 大钢琴（声学钢琴）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 0
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="1-bright-acoustic-piano-明亮的钢琴"><a href="#1-bright-acoustic-piano-%e6%98%8e%e4%ba%ae%e7%9a%84%e9%92%a2%e7%90%b4" class="header-anchor">1 Bright Acoustic Piano 明亮的钢琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 1
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="2-electric-grand-piano-电钢琴"><a href="#2-electric-grand-piano-%e7%94%b5%e9%92%a2%e7%90%b4" class="header-anchor">2 Electric Grand Piano 电钢琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 2
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="3-honky-tonk-piano-酒吧钢琴"><a href="#3-honky-tonk-piano-%e9%85%92%e5%90%a7%e9%92%a2%e7%90%b4" class="header-anchor">3 Honky-tonk Piano 酒吧钢琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 3
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="4-rhodes-piano-柔和的电钢琴"><a href="#4-rhodes-piano-%e6%9f%94%e5%92%8c%e7%9a%84%e7%94%b5%e9%92%a2%e7%90%b4" class="header-anchor">4 Rhodes Piano 柔和的电钢琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 4
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="5-chorused-piano-加合唱效果的电钢琴"><a href="#5-chorused-piano-%e5%8a%a0%e5%90%88%e5%94%b1%e6%95%88%e6%9e%9c%e7%9a%84%e7%94%b5%e9%92%a2%e7%90%b4" class="header-anchor">5 Chorused Piano 加合唱效果的电钢琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 5
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="6-harpsichord-羽管键琴拨弦古钢琴"><a href="#6-harpsichord-%e7%be%bd%e7%ae%a1%e9%94%ae%e7%90%b4%e6%8b%a8%e5%bc%a6%e5%8f%a4%e9%92%a2%e7%90%b4" class="header-anchor">6 Harpsichord 羽管键琴（拨弦古钢琴）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 6
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="7-clavichord-科拉维科特琴击弦古钢琴"><a href="#7-clavichord-%e7%a7%91%e6%8b%89%e7%bb%b4%e7%a7%91%e7%89%b9%e7%90%b4%e5%87%bb%e5%bc%a6%e5%8f%a4%e9%92%a2%e7%90%b4" class="header-anchor">7 Clavichord 科拉维科特琴（击弦古钢琴）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 7
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h1 id="色彩打击乐器"><a href="#%e8%89%b2%e5%bd%a9%e6%89%93%e5%87%bb%e4%b9%90%e5%99%a8" class="header-anchor">色彩打击乐器</a></h1>
+
+<h2 id="8-celesta-钢片琴"><a href="#8-celesta-%e9%92%a2%e7%89%87%e7%90%b4" class="header-anchor">8 Celesta 钢片琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 8
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="9-glockenspiel-钟琴"><a href="#9-glockenspiel-%e9%92%9f%e7%90%b4" class="header-anchor">9 Glockenspiel 钟琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 9
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="10-music-box-八音盒"><a href="#10-music-box-%e5%85%ab%e9%9f%b3%e7%9b%92" class="header-anchor">10 Music box 八音盒</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 10
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="11-vibraphone-颤音琴"><a href="#11-vibraphone-%e9%a2%a4%e9%9f%b3%e7%90%b4" class="header-anchor">11 Vibraphone 颤音琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 11
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="12-marimba-马林巴"><a href="#12-marimba-%e9%a9%ac%e6%9e%97%e5%b7%b4" class="header-anchor">12 Marimba 马林巴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 12
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="13-xylophone-木琴"><a href="#13-xylophone-%e6%9c%a8%e7%90%b4" class="header-anchor">13 Xylophone 木琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 13
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="14-tubular-bells-管钟"><a href="#14-tubular-bells-%e7%ae%a1%e9%92%9f" class="header-anchor">14 Tubular Bells 管钟</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 14
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="15-dulcimer-大扬琴"><a href="#15-dulcimer-%e5%a4%a7%e6%89%ac%e7%90%b4" class="header-anchor">15 Dulcimer 大扬琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 15
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h1 id="风琴"><a href="#%e9%a3%8e%e7%90%b4" class="header-anchor">风琴</a></h1>
+
+<h2 id="16-hammond-organ-击杆风琴"><a href="#16-hammond-organ-%e5%87%bb%e6%9d%86%e9%a3%8e%e7%90%b4" class="header-anchor">16 Hammond Organ 击杆风琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 16
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="17-percussive-organ-打击式风琴"><a href="#17-percussive-organ-%e6%89%93%e5%87%bb%e5%bc%8f%e9%a3%8e%e7%90%b4" class="header-anchor">17 Percussive Organ 打击式风琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 17
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="18-rock-organ-摇滚风琴"><a href="#18-rock-organ-%e6%91%87%e6%bb%9a%e9%a3%8e%e7%90%b4" class="header-anchor">18 Rock Organ 摇滚风琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 18
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="19-church-organ-教堂风琴"><a href="#19-church-organ-%e6%95%99%e5%a0%82%e9%a3%8e%e7%90%b4" class="header-anchor">19 Church Organ 教堂风琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 19
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="20-reed-organ-簧管风琴"><a href="#20-reed-organ-%e7%b0%a7%e7%ae%a1%e9%a3%8e%e7%90%b4" class="header-anchor">20 Reed Organ 簧管风琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 20
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="21-accordian-手风琴"><a href="#21-accordian-%e6%89%8b%e9%a3%8e%e7%90%b4" class="header-anchor">21 Accordian 手风琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 21
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="22-harmonica-口琴"><a href="#22-harmonica-%e5%8f%a3%e7%90%b4" class="header-anchor">22 Harmonica 口琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 22
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="23-tango-accordian-探戈手风琴"><a href="#23-tango-accordian-%e6%8e%a2%e6%88%88%e6%89%8b%e9%a3%8e%e7%90%b4" class="header-anchor">23 Tango Accordian 探戈手风琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 23
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h1 id="吉他"><a href="#%e5%90%89%e4%bb%96" class="header-anchor">吉他</a></h1>
+
+<h2 id="24-acoustic-guitar-nylon-尼龙弦吉他"><a href="#24-acoustic-guitar-nylon-%e5%b0%bc%e9%be%99%e5%bc%a6%e5%90%89%e4%bb%96" class="header-anchor">24 Acoustic Guitar (nylon) 尼龙弦吉他</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 24
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="25-acoustic-guitar-steel-钢弦吉他"><a href="#25-acoustic-guitar-steel-%e9%92%a2%e5%bc%a6%e5%90%89%e4%bb%96" class="header-anchor">25 Acoustic Guitar (steel) 钢弦吉他</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 25
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="26-electric-guitar-jazz-爵士电吉他"><a href="#26-electric-guitar-jazz-%e7%88%b5%e5%a3%ab%e7%94%b5%e5%90%89%e4%bb%96" class="header-anchor">26 Electric Guitar (jazz) 爵士电吉他</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 26
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="27-electric-guitar-clean-清音电吉他"><a href="#27-electric-guitar-clean-%e6%b8%85%e9%9f%b3%e7%94%b5%e5%90%89%e4%bb%96" class="header-anchor">27 Electric Guitar (clean) 清音电吉他</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 27
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="28-electric-guitar-muted-闷音电吉他"><a href="#28-electric-guitar-muted-%e9%97%b7%e9%9f%b3%e7%94%b5%e5%90%89%e4%bb%96" class="header-anchor">28 Electric Guitar (muted) 闷音电吉他</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 28
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="29-overdriven-guitar-加驱动效果的电吉他"><a href="#29-overdriven-guitar-%e5%8a%a0%e9%a9%b1%e5%8a%a8%e6%95%88%e6%9e%9c%e7%9a%84%e7%94%b5%e5%90%89%e4%bb%96" class="header-anchor">29 Overdriven Guitar 加驱动效果的电吉他</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 29
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="30-distortion-guitar-加失真效果的电吉他"><a href="#30-distortion-guitar-%e5%8a%a0%e5%a4%b1%e7%9c%9f%e6%95%88%e6%9e%9c%e7%9a%84%e7%94%b5%e5%90%89%e4%bb%96" class="header-anchor">30 Distortion Guitar 加失真效果的电吉他</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 30
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="31-guitar-harmonics-吉他和音"><a href="#31-guitar-harmonics-%e5%90%89%e4%bb%96%e5%92%8c%e9%9f%b3" class="header-anchor">31 Guitar Harmonics 吉他和音</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 31
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h1 id="贝司"><a href="#%e8%b4%9d%e5%8f%b8" class="header-anchor">贝司</a></h1>
+
+<h2 id="32-acoustic-bass-大贝司声学贝司"><a href="#32-acoustic-bass-%e5%a4%a7%e8%b4%9d%e5%8f%b8%e5%a3%b0%e5%ad%a6%e8%b4%9d%e5%8f%b8" class="header-anchor">32 Acoustic Bass 大贝司（声学贝司）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 32
+K:bass-8
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="33-electric-bassfinger-电贝司指弹"><a href="#33-electric-bassfinger-%e7%94%b5%e8%b4%9d%e5%8f%b8%e6%8c%87%e5%bc%b9" class="header-anchor">33 Electric Bass(finger) 电贝司（指弹）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 33
+K:bass-8
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="34-electric-bass-pick-电贝司拨片"><a href="#34-electric-bass-pick-%e7%94%b5%e8%b4%9d%e5%8f%b8%e6%8b%a8%e7%89%87" class="header-anchor">34 Electric Bass (pick) 电贝司（拨片）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 34
+K:bass-8
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="35-fretless-bass-无品贝司"><a href="#35-fretless-bass-%e6%97%a0%e5%93%81%e8%b4%9d%e5%8f%b8" class="header-anchor">35 Fretless Bass 无品贝司</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 35
+K:bass-8
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="36-slap-bass-1-掌击bass-1"><a href="#36-slap-bass-1-%e6%8e%8c%e5%87%bbbass-1" class="header-anchor">36 Slap Bass 1 掌击Bass 1</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 36
+K:bass-8
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="37-slap-bass-2-掌击bass-2"><a href="#37-slap-bass-2-%e6%8e%8c%e5%87%bbbass-2" class="header-anchor">37 Slap Bass 2 掌击Bass 2</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 37
+K:bass-8
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="38-synth-bass-1-电子合成bass-1"><a href="#38-synth-bass-1-%e7%94%b5%e5%ad%90%e5%90%88%e6%88%90bass-1" class="header-anchor">38 Synth Bass 1 电子合成Bass 1</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 38
+K:bass-8
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="39-synth-bass-2-电子合成bass-2"><a href="#39-synth-bass-2-%e7%94%b5%e5%ad%90%e5%90%88%e6%88%90bass-2" class="header-anchor">39 Synth Bass 2 电子合成Bass 2</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 39
+K:bass-8
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h1 id="弦乐"><a href="#%e5%bc%a6%e4%b9%90" class="header-anchor">弦乐</a></h1>
+
+<h2 id="40-violin-小提琴"><a href="#40-violin-%e5%b0%8f%e6%8f%90%e7%90%b4" class="header-anchor">40 Violin 小提琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 40
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+cdef  gabc'  [dfa]2 [gbd]2 [cegc']4
+</code></pre>
+<h2 id="41-viola-中提琴"><a href="#41-viola-%e4%b8%ad%e6%8f%90%e7%90%b4" class="header-anchor">41 Viola 中提琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 41
+K:alto
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="42-cello-大提琴"><a href="#42-cello-%e5%a4%a7%e6%8f%90%e7%90%b4" class="header-anchor">42 Cello 大提琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 42
+K:bass
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="43-contrabass-低音大提琴"><a href="#43-contrabass-%e4%bd%8e%e9%9f%b3%e5%a4%a7%e6%8f%90%e7%90%b4" class="header-anchor">43 Contrabass 低音大提琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 43
+K:bass-8
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="44-tremolo-strings-弦乐群颤音音色"><a href="#44-tremolo-strings-%e5%bc%a6%e4%b9%90%e7%be%a4%e9%a2%a4%e9%9f%b3%e9%9f%b3%e8%89%b2" class="header-anchor">44 Tremolo Strings 弦乐群颤音音色</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 44
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+K:bass
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="45-pizzicato-strings-弦乐群拨弦音色"><a href="#45-pizzicato-strings-%e5%bc%a6%e4%b9%90%e7%be%a4%e6%8b%a8%e5%bc%a6%e9%9f%b3%e8%89%b2" class="header-anchor">45 Pizzicato Strings 弦乐群拨弦音色</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 45
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+K:bass
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="46-orchestral-harp-竖琴"><a href="#46-orchestral-harp-%e7%ab%96%e7%90%b4" class="header-anchor">46 Orchestral Harp 竖琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 46
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="47-timpani-定音鼓"><a href="#47-timpani-%e5%ae%9a%e9%9f%b3%e9%bc%93" class="header-anchor">47 Timpani 定音鼓</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 47
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h1 id="合奏合唱"><a href="#%e5%90%88%e5%a5%8f%e5%90%88%e5%94%b1" class="header-anchor">合奏/合唱</a></h1>
+
+<h2 id="48-string-ensemble-1-弦乐合奏音色1"><a href="#48-string-ensemble-1-%e5%bc%a6%e4%b9%90%e5%90%88%e5%a5%8f%e9%9f%b3%e8%89%b21" class="header-anchor">48 String Ensemble 1 弦乐合奏音色1</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 48
+V:T1
+V:T2 clef=bass
+[V:T1] [G,Ee]4[B,d]4   [E,Cc]4[G,B]4    [F,A,A]4 [E,CG]4  [F,A,A]4 [G,B,B]4
+[V:T2] [C,]4 [G,,D,]4[A,,]4[E,,B,,]4[F,,C,]4[C,,C,]4[F,,C,]4[G,,D,]4
+</code></pre>
+<h2 id="49-string-ensemble-2-弦乐合奏音色2"><a href="#49-string-ensemble-2-%e5%bc%a6%e4%b9%90%e5%90%88%e5%a5%8f%e9%9f%b3%e8%89%b22" class="header-anchor">49 String Ensemble 2 弦乐合奏音色2</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 49
+V:T1
+V:T2 clef=bass
+[V:T1] [G,Ee]4[B,d]4   [E,Cc]4[G,B]4    [F,A,A]4 [E,CG]4  [F,A,A]4 [G,B,B]4
+[V:T2] [C,]4 [G,,D,]4[A,,]4[E,,B,,]4[F,,C,]4[C,,C,]4[F,,C,]4[G,,D,]4
+</code></pre>
+<h2 id="50-synth-strings-1-合成弦乐合奏音色1"><a href="#50-synth-strings-1-%e5%90%88%e6%88%90%e5%bc%a6%e4%b9%90%e5%90%88%e5%a5%8f%e9%9f%b3%e8%89%b21" class="header-anchor">50 Synth Strings 1 合成弦乐合奏音色1</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 50
+V:T1
+V:T2 clef=bass
+[V:T1] [G,Ee]4[B,d]4   [E,Cc]4[G,B]4    [F,A,A]4 [E,CG]4  [F,A,A]4 [G,B,B]4
+[V:T2] [C,]4 [G,,D,]4[A,,]4[E,,B,,]4[F,,C,]4[C,,C,]4[F,,C,]4[G,,D,]4
+</code></pre>
+<h2 id="51-synth-strings-2-合成弦乐合奏音色2"><a href="#51-synth-strings-2-%e5%90%88%e6%88%90%e5%bc%a6%e4%b9%90%e5%90%88%e5%a5%8f%e9%9f%b3%e8%89%b22" class="header-anchor">51 Synth Strings 2 合成弦乐合奏音色2</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 51
+V:T1
+V:T2 clef=bass
+[V:T1] [G,Ee]4[B,d]4   [E,Cc]4[G,B]4    [F,A,A]4 [E,CG]4  [F,A,A]4 [G,B,B]4
+[V:T2] [C,]4 [G,,D,]4[A,,]4[E,,B,,]4[F,,C,]4[C,,C,]4[F,,C,]4[G,,D,]4
+</code></pre>
+<h2 id="52-choir-aahs-人声合唱啊"><a href="#52-choir-aahs-%e4%ba%ba%e5%a3%b0%e5%90%88%e5%94%b1%e5%95%8a" class="header-anchor">52 Choir Aahs 人声合唱“啊”</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 52
+V:T1
+V:T2 clef=bass
+[V:T1] [G,Ee]4[B,d]4   [E,Cc]4[G,B]4    [F,A,A]4 [E,CG]4  [F,A,A]4 [G,B,B]4
+[V:T2] [C,]4 [G,,D,]4[A,,]4[E,,B,,]4[F,,C,]4[C,,C,]4[F,,C,]4[G,,D,]4
+</code></pre>
+<h2 id="53-voice-oohs-人声嘟"><a href="#53-voice-oohs-%e4%ba%ba%e5%a3%b0%e5%98%9f" class="header-anchor">53 Voice Oohs 人声“嘟”</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 53
+V:T1
+V:T2 clef=bass
+[V:T1] [G,Ee]4[B,d]4   [E,Cc]4[G,B]4    [F,A,A]4 [E,CG]4  [F,A,A]4 [G,B,B]4
+[V:T2] [C,]4 [G,,D,]4[A,,]4[E,,B,,]4[F,,C,]4[C,,C,]4[F,,C,]4[G,,D,]4
+</code></pre>
+<h2 id="54-synth-voice-合成人声"><a href="#54-synth-voice-%e5%90%88%e6%88%90%e4%ba%ba%e5%a3%b0" class="header-anchor">54 Synth Voice 合成人声</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 54
+V:T1
+V:T2 clef=bass
+[V:T1] [G,Ee]4[B,d]4   [E,Cc]4[G,B]4    [F,A,A]4 [E,CG]4  [F,A,A]4 [G,B,B]4
+[V:T2] [C,]4 [G,,D,]4[A,,]4[E,,B,,]4[F,,C,]4[C,,C,]4[F,,C,]4[G,,D,]4
+</code></pre>
+<h2 id="55-orchestra-hit-管弦乐敲击齐奏"><a href="#55-orchestra-hit-%e7%ae%a1%e5%bc%a6%e4%b9%90%e6%95%b2%e5%87%bb%e9%bd%90%e5%a5%8f" class="header-anchor">55 Orchestra Hit 管弦乐敲击齐奏</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 55
+V:T1
+V:T2 clef=bass
+[V:T1] [G,Ee]4[B,d]4   [E,Cc]4[G,B]4    [F,A,A]4 [E,CG]4  [F,A,A]4 [G,B,B]4
+[V:T2] [C,]4 [G,,D,]4[A,,]4[E,,B,,]4[F,,C,]4[C,,C,]4[F,,C,]4[G,,D,]4
+</code></pre>
+<h1 id="铜管"><a href="#%e9%93%9c%e7%ae%a1" class="header-anchor">铜管</a></h1>
+
+<h2 id="56-trumpet-小号"><a href="#56-trumpet-%e5%b0%8f%e5%8f%b7" class="header-anchor">56 Trumpet 小号</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 56
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="57-trombone-长号"><a href="#57-trombone-%e9%95%bf%e5%8f%b7" class="header-anchor">57 Trombone 长号</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 57
+K:tenor
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="58-tuba-大号"><a href="#58-tuba-%e5%a4%a7%e5%8f%b7" class="header-anchor">58 Tuba 大号</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 58
+K:bass
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="59-muted-trumpet-加弱音器小号"><a href="#59-muted-trumpet-%e5%8a%a0%e5%bc%b1%e9%9f%b3%e5%99%a8%e5%b0%8f%e5%8f%b7" class="header-anchor">59 Muted Trumpet 加弱音器小号</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 59
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="60-french-horn-法国号圆号"><a href="#60-french-horn-%e6%b3%95%e5%9b%bd%e5%8f%b7%e5%9c%86%e5%8f%b7" class="header-anchor">60 French Horn 法国号（圆号）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 60
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="61-brass-section-铜管组铜管乐器合奏音色"><a href="#61-brass-section-%e9%93%9c%e7%ae%a1%e7%bb%84%e9%93%9c%e7%ae%a1%e4%b9%90%e5%99%a8%e5%90%88%e5%a5%8f%e9%9f%b3%e8%89%b2" class="header-anchor">61 Brass Section 铜管组（铜管乐器合奏音色）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 61
+V:T1
+V:T2 clef=bass
+[V:T1] [G,Ee]4[B,d]4   [E,Cc]4[G,B]4    [F,A,A]4 [E,CG]4  [F,A,A]4 [G,B,B]4
+[V:T2] [C,]4 [G,,D,]4[A,,]4[E,,B,,]4[F,,C,]4[C,,C,]4[F,,C,]4[G,,D,]4
+</code></pre>
+<h2 id="62-synth-brass-1-合成铜管音色1"><a href="#62-synth-brass-1-%e5%90%88%e6%88%90%e9%93%9c%e7%ae%a1%e9%9f%b3%e8%89%b21" class="header-anchor">62 Synth Brass 1 合成铜管音色1</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 62
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="63-synth-brass-2-合成铜管音色2"><a href="#63-synth-brass-2-%e5%90%88%e6%88%90%e9%93%9c%e7%ae%a1%e9%9f%b3%e8%89%b22" class="header-anchor">63 Synth Brass 2 合成铜管音色2</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 63
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h1 id="簧管"><a href="#%e7%b0%a7%e7%ae%a1" class="header-anchor">簧管</a></h1>
+
+<h2 id="64-soprano-sax--高音萨克斯"><a href="#64-soprano-sax--%e9%ab%98%e9%9f%b3%e8%90%a8%e5%85%8b%e6%96%af" class="header-anchor">64 Soprano Sax  高音萨克斯</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 64
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="65-alto-sax-中音萨克斯"><a href="#65-alto-sax-%e4%b8%ad%e9%9f%b3%e8%90%a8%e5%85%8b%e6%96%af" class="header-anchor">65 Alto Sax 中音萨克斯</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 65
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="66-tenor-sax-次中音萨克斯"><a href="#66-tenor-sax-%e6%ac%a1%e4%b8%ad%e9%9f%b3%e8%90%a8%e5%85%8b%e6%96%af" class="header-anchor">66 Tenor Sax 次中音萨克斯</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 66
+K:bass
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="67-baritone-sax-上低音萨克斯"><a href="#67-baritone-sax-%e4%b8%8a%e4%bd%8e%e9%9f%b3%e8%90%a8%e5%85%8b%e6%96%af" class="header-anchor">67 Baritone Sax 上低音萨克斯</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 67
+K:bass
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="68-oboe-双簧管"><a href="#68-oboe-%e5%8f%8c%e7%b0%a7%e7%ae%a1" class="header-anchor">68 Oboe 双簧管</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 68
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="69-english-horn-英国管"><a href="#69-english-horn-%e8%8b%b1%e5%9b%bd%e7%ae%a1" class="header-anchor">69 English Horn 英国管</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 69
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="70-bassoon-巴松大管"><a href="#70-bassoon-%e5%b7%b4%e6%9d%be%e5%a4%a7%e7%ae%a1" class="header-anchor">70 Bassoon 巴松（大管）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 70
+K:bass
+C,D,E,F,  G,A,B,C  [D,F,A,]2 [G,B,D,]2 [C,E,C]4
+</code></pre>
+<h2 id="71-clarinet-单簧管黑管"><a href="#71-clarinet-%e5%8d%95%e7%b0%a7%e7%ae%a1%e9%bb%91%e7%ae%a1" class="header-anchor">71 Clarinet 单簧管（黑管）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 71
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h1 id="笛"><a href="#%e7%ac%9b" class="header-anchor">笛</a></h1>
+
+<h2 id="72-piccolo-短笛"><a href="#72-piccolo-%e7%9f%ad%e7%ac%9b" class="header-anchor">72 Piccolo 短笛</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 72
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="73-flute-长笛"><a href="#73-flute-%e9%95%bf%e7%ac%9b" class="header-anchor">73 Flute 长笛</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 73
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="74-recorder-竖笛"><a href="#74-recorder-%e7%ab%96%e7%ac%9b" class="header-anchor">74 Recorder 竖笛</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 74
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="75-pan-flute-排箫"><a href="#75-pan-flute-%e6%8e%92%e7%ae%ab" class="header-anchor">75 Pan Flute 排箫</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 75
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="76-bottle-blow"><a href="#76-bottle-blow" class="header-anchor">76 Bottle Blow</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 76
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="77-shakuhachi-日本尺八"><a href="#77-shakuhachi-%e6%97%a5%e6%9c%ac%e5%b0%ba%e5%85%ab" class="header-anchor">77 Shakuhachi 日本尺八</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 77
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="78-whistle-口哨声"><a href="#78-whistle-%e5%8f%a3%e5%93%a8%e5%a3%b0" class="header-anchor">78 Whistle 口哨声</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 78
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="79-ocarina-奥卡雷那"><a href="#79-ocarina-%e5%a5%a5%e5%8d%a1%e9%9b%b7%e9%82%a3" class="header-anchor">79 Ocarina 奥卡雷那</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 79
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h1 id="合成主音"><a href="#%e5%90%88%e6%88%90%e4%b8%bb%e9%9f%b3" class="header-anchor">合成主音</a></h1>
+
+<h2 id="80-lead-1-square--合成主音1方波"><a href="#80-lead-1-square--%e5%90%88%e6%88%90%e4%b8%bb%e9%9f%b31%e6%96%b9%e6%b3%a2" class="header-anchor">80 Lead 1 (square)  合成主音1（方波）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 80
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="81-lead-2-sawtooth-合成主音2锯齿波"><a href="#81-lead-2-sawtooth-%e5%90%88%e6%88%90%e4%b8%bb%e9%9f%b32%e9%94%af%e9%bd%bf%e6%b3%a2" class="header-anchor">81 Lead 2 (sawtooth) 合成主音2（锯齿波）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 81
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="82-lead-3-caliope-lead-合成主音3"><a href="#82-lead-3-caliope-lead-%e5%90%88%e6%88%90%e4%b8%bb%e9%9f%b33" class="header-anchor">82 Lead 3 (caliope lead) 合成主音3</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 82
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="83-lead-4-chiff-lead-合成主音4"><a href="#83-lead-4-chiff-lead-%e5%90%88%e6%88%90%e4%b8%bb%e9%9f%b34" class="header-anchor">83 Lead 4 (chiff lead) 合成主音4</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 83
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="84-lead-5-charang--合成主音5"><a href="#84-lead-5-charang--%e5%90%88%e6%88%90%e4%b8%bb%e9%9f%b35" class="header-anchor">84 Lead 5 (charang)  合成主音5</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 84
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="85-lead-6-voice-合成主音6人声"><a href="#85-lead-6-voice-%e5%90%88%e6%88%90%e4%b8%bb%e9%9f%b36%e4%ba%ba%e5%a3%b0" class="header-anchor">85 Lead 6 (voice) 合成主音6（人声）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 85
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="86-lead-7-fifths-合成主音7平行五度"><a href="#86-lead-7-fifths-%e5%90%88%e6%88%90%e4%b8%bb%e9%9f%b37%e5%b9%b3%e8%a1%8c%e4%ba%94%e5%ba%a6" class="header-anchor">86 Lead 7 (fifths) 合成主音7（平行五度）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 86
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="87-lead-8-basslead合成主音8贝司加主音"><a href="#87-lead-8-basslead%e5%90%88%e6%88%90%e4%b8%bb%e9%9f%b38%e8%b4%9d%e5%8f%b8%e5%8a%a0%e4%b8%bb%e9%9f%b3" class="header-anchor">87 Lead 8 (bass+lead)合成主音8（贝司加主音）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 87
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h1 id="合成音色"><a href="#%e5%90%88%e6%88%90%e9%9f%b3%e8%89%b2" class="header-anchor">合成音色</a></h1>
+
+<h2 id="88-pad-1-new-age-合成音色1新世纪"><a href="#88-pad-1-new-age-%e5%90%88%e6%88%90%e9%9f%b3%e8%89%b21%e6%96%b0%e4%b8%96%e7%ba%aa" class="header-anchor">88 Pad 1 (new age) 合成音色1（新世纪）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 88
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="89-pad-2-warm--合成音色2温暖"><a href="#89-pad-2-warm--%e5%90%88%e6%88%90%e9%9f%b3%e8%89%b22%e6%b8%a9%e6%9a%96" class="header-anchor">89 Pad 2 (warm)  合成音色2（温暖）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 89
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="90-pad-3-polysynth--合成音色3"><a href="#90-pad-3-polysynth--%e5%90%88%e6%88%90%e9%9f%b3%e8%89%b23" class="header-anchor">90 Pad 3 (polysynth)  合成音色3</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 90
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="91-pad-4-choir-合成音色4合唱"><a href="#91-pad-4-choir-%e5%90%88%e6%88%90%e9%9f%b3%e8%89%b24%e5%90%88%e5%94%b1" class="header-anchor">91 Pad 4 (choir) 合成音色4（合唱）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 91
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="92-pad-5-bowed-合成音色5"><a href="#92-pad-5-bowed-%e5%90%88%e6%88%90%e9%9f%b3%e8%89%b25" class="header-anchor">92 Pad 5 (bowed) 合成音色5</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 92
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="93-pad-6-metallic-合成音色6金属声"><a href="#93-pad-6-metallic-%e5%90%88%e6%88%90%e9%9f%b3%e8%89%b26%e9%87%91%e5%b1%9e%e5%a3%b0" class="header-anchor">93 Pad 6 (metallic) 合成音色6（金属声）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 93
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="94-pad-7-halo--合成音色7光环"><a href="#94-pad-7-halo--%e5%90%88%e6%88%90%e9%9f%b3%e8%89%b27%e5%85%89%e7%8e%af" class="header-anchor">94 Pad 7 (halo)  合成音色7（光环）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 94
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="95-pad-8-sweep-合成音色8"><a href="#95-pad-8-sweep-%e5%90%88%e6%88%90%e9%9f%b3%e8%89%b28" class="header-anchor">95 Pad 8 (sweep) 合成音色8</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 95
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h1 id="合成效果"><a href="#%e5%90%88%e6%88%90%e6%95%88%e6%9e%9c" class="header-anchor">合成效果</a></h1>
+
+<h2 id="96-fx-1-rain-合成效果1雨声"><a href="#96-fx-1-rain-%e5%90%88%e6%88%90%e6%95%88%e6%9e%9c1%e9%9b%a8%e5%a3%b0" class="header-anchor">96 FX 1 (rain) 合成效果1雨声</a></h2>
+
+<h2 id="97-fx-2-soundtrack-合成效果2音轨"><a href="#97-fx-2-soundtrack-%e5%90%88%e6%88%90%e6%95%88%e6%9e%9c2%e9%9f%b3%e8%bd%a8" class="header-anchor">97 FX 2 (soundtrack) 合成效果2音轨</a></h2>
+
+<h2 id="98-fx-3-crystal-合成效果3水晶"><a href="#98-fx-3-crystal-%e5%90%88%e6%88%90%e6%95%88%e6%9e%9c3%e6%b0%b4%e6%99%b6" class="header-anchor">98 FX 3 (crystal) 合成效果3水晶</a></h2>
+
+<h2 id="99-fx-4-atmosphere-合成效果4大气"><a href="#99-fx-4-atmosphere-%e5%90%88%e6%88%90%e6%95%88%e6%9e%9c4%e5%a4%a7%e6%b0%94" class="header-anchor">99 FX 4 (atmosphere) 合成效果4大气</a></h2>
+
+<h2 id="100-fx-5-brightness-合成效果5明亮"><a href="#100-fx-5-brightness-%e5%90%88%e6%88%90%e6%95%88%e6%9e%9c5%e6%98%8e%e4%ba%ae" class="header-anchor">100 FX 5 (brightness) 合成效果5明亮</a></h2>
+
+<h2 id="101-fx-6-goblins-合成效果6鬼怪"><a href="#101-fx-6-goblins-%e5%90%88%e6%88%90%e6%95%88%e6%9e%9c6%e9%ac%bc%e6%80%aa" class="header-anchor">101 FX 6 (goblins) 合成效果6鬼怪</a></h2>
+
+<h2 id="102-fx-7-echoes--合成效果7回声"><a href="#102-fx-7-echoes--%e5%90%88%e6%88%90%e6%95%88%e6%9e%9c7%e5%9b%9e%e5%a3%b0" class="header-anchor">102 FX 7 (echoes)  合成效果7回声</a></h2>
+
+<h2 id="103-fx-8-sci-fi--合成效果8科幻"><a href="#103-fx-8-sci-fi--%e5%90%88%e6%88%90%e6%95%88%e6%9e%9c8%e7%a7%91%e5%b9%bb" class="header-anchor">103 FX 8 (sci-fi)  合成效果8科幻</a></h2>
+
+<h1 id="民间乐器"><a href="#%e6%b0%91%e9%97%b4%e4%b9%90%e5%99%a8" class="header-anchor">民间乐器</a></h1>
+
+<h2 id="104-sitar-西塔尔印度"><a href="#104-sitar-%e8%a5%bf%e5%a1%94%e5%b0%94%e5%8d%b0%e5%ba%a6" class="header-anchor">104 Sitar 西塔尔（印度）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 104
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="105-banjo-班卓琴美洲"><a href="#105-banjo-%e7%8f%ad%e5%8d%93%e7%90%b4%e7%be%8e%e6%b4%b2" class="header-anchor">105 Banjo 班卓琴（美洲）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 105
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="106-shamisen-三昧线日本"><a href="#106-shamisen-%e4%b8%89%e6%98%a7%e7%ba%bf%e6%97%a5%e6%9c%ac" class="header-anchor">106 Shamisen 三昧线（日本）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 106
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="107-koto-十三弦筝日本"><a href="#107-koto-%e5%8d%81%e4%b8%89%e5%bc%a6%e7%ad%9d%e6%97%a5%e6%9c%ac" class="header-anchor">107 Koto 十三弦筝（日本）</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 107
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="108-kalimba-卡林巴"><a href="#108-kalimba-%e5%8d%a1%e6%9e%97%e5%b7%b4" class="header-anchor">108 Kalimba 卡林巴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 108
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="109-bagpipe-风笛"><a href="#109-bagpipe-%e9%a3%8e%e7%ac%9b" class="header-anchor">109 Bagpipe 风笛</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 109
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="110-fiddle-民族提琴"><a href="#110-fiddle-%e6%b0%91%e6%97%8f%e6%8f%90%e7%90%b4" class="header-anchor">110 Fiddle 民族提琴</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 110
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="111-shanai-山奈"><a href="#111-shanai-%e5%b1%b1%e5%a5%88" class="header-anchor">111 Shanai 山奈</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 111
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h1 id="打击乐器"><a href="#%e6%89%93%e5%87%bb%e4%b9%90%e5%99%a8" class="header-anchor">打击乐器</a></h1>
+
+<h2 id="112-tinkle-bell-叮当铃"><a href="#112-tinkle-bell-%e5%8f%ae%e5%bd%93%e9%93%83" class="header-anchor">112 Tinkle Bell 叮当铃</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 112
+K:perc
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="113-agogo"><a href="#113-agogo" class="header-anchor">113 Agogo</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 113
+K:perc
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="114-steel-drums-钢鼓"><a href="#114-steel-drums-%e9%92%a2%e9%bc%93" class="header-anchor">114 Steel Drums 钢鼓</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 114
+K:perc
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="115-woodblock-木鱼"><a href="#115-woodblock-%e6%9c%a8%e9%b1%bc" class="header-anchor">115 Woodblock 木鱼</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 115
+K:perc
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="116-taiko-drum-太鼓"><a href="#116-taiko-drum-%e5%a4%aa%e9%bc%93" class="header-anchor">116 Taiko Drum 太鼓</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 116
+K:perc
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="117-melodic-tom-通通鼓"><a href="#117-melodic-tom-%e9%80%9a%e9%80%9a%e9%bc%93" class="header-anchor">117 Melodic Tom 通通鼓</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 117
+K:perc
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="118-synth-drum--合成鼓"><a href="#118-synth-drum--%e5%90%88%e6%88%90%e9%bc%93" class="header-anchor">118 Synth Drum  合成鼓</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 118
+K:perc
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="119-reverse-cymbal-铜钹"><a href="#119-reverse-cymbal-%e9%93%9c%e9%92%b9" class="header-anchor">119 Reverse Cymbal 铜钹</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 119
+K:perc
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h1 id="sound-effects-声音效果"><a href="#sound-effects-%e5%a3%b0%e9%9f%b3%e6%95%88%e6%9e%9c" class="header-anchor">Sound Effects 声音效果</a></h1>
+
+<h2 id="120-guitar-fret-noise-吉他换把杂音"><a href="#120-guitar-fret-noise-%e5%90%89%e4%bb%96%e6%8d%a2%e6%8a%8a%e6%9d%82%e9%9f%b3" class="header-anchor">120 Guitar Fret Noise 吉他换把杂音</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 120
+K:perc
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="121-breath-noise-呼吸声"><a href="#121-breath-noise-%e5%91%bc%e5%90%b8%e5%a3%b0" class="header-anchor">121 Breath Noise 呼吸声</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 121
+K:perc
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="122-seashore-海浪声"><a href="#122-seashore-%e6%b5%b7%e6%b5%aa%e5%a3%b0" class="header-anchor">122 Seashore 海浪声</a></h2>
+
+<h2 id="123-bird-tweet-鸟鸣"><a href="#123-bird-tweet-%e9%b8%9f%e9%b8%a3" class="header-anchor">123 Bird Tweet 鸟鸣</a></h2>
+
+<h2 id="124-telephone-ring-电话铃"><a href="#124-telephone-ring-%e7%94%b5%e8%af%9d%e9%93%83" class="header-anchor">124 Telephone Ring 电话铃</a></h2>
+
+<h2 id="125-helicopter-直升机"><a href="#125-helicopter-%e7%9b%b4%e5%8d%87%e6%9c%ba" class="header-anchor">125 Helicopter 直升机</a></h2>
+
+<h2 id="126-applause-鼓掌声"><a href="#126-applause-%e9%bc%93%e6%8e%8c%e5%a3%b0" class="header-anchor">126 Applause 鼓掌声</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 126
+K:perc
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+<h2 id="127-gunshot-枪声"><a href="#127-gunshot-%e6%9e%aa%e5%a3%b0" class="header-anchor">127 Gunshot 枪声</a></h2>
+<pre><code class="language-abcjs" data-lang="abcjs">L: 1/4
+%%MIDI program 127
+K:perc
+CDEF  GABC'  [DFA]2 [GBD]2 [CEGC']4
+</code></pre>
+  </main>
+</article>
+
+
+<script src="https://beaudar.lipk.org/client.js"
+        repo="brangpd/repo-for-comment"
+        issue-term="56"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+<link rel="stylesheet" href="/blog/katex/katex.min.css" />
+
+
+<script defer src="/blog/katex/katex.min.js"></script>
+
+
+<script defer src="/blog/katex/contrib/auto-render.min.js"></script>
+<script src="/blog/js/katex.js"></script>
+<footer>
+
+© <a href="mailto:brangpd@outlook.com">brangpd</a>
+</footer>
+<button onclick="topFunction()" id="toTopButton">↑↑↑</button>
+<script src="/blog/js/to_top_button.js"></script>
+<script src="/blog/js/custom.js"></script>
+</body>
+</html>

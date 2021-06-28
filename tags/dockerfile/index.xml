@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dockerfile on 花落无声的站点</title>
+    <link>/blog/tags/dockerfile/</link>
+    <description>Recent content in Dockerfile on 花落无声的站点</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Wed, 05 Aug 2020 15:45:32 +0800</lastBuildDate><atom:link href="/blog/tags/dockerfile/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dockerfile常用项记录</title>
+      <link>/blog/p/2020/08/05/dockerfile%E5%B8%B8%E7%94%A8%E9%A1%B9%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Wed, 05 Aug 2020 15:45:32 +0800</pubDate>
+      
+      <guid>/blog/p/2020/08/05/dockerfile%E5%B8%B8%E7%94%A8%E9%A1%B9%E8%AE%B0%E5%BD%95/</guid>
+      <description>&lt;h1 id=&#34;参考&#34;&gt;&lt;a href=&#34;#%e5%8f%82%e8%80%83&#34; class=&#34;header-anchor&#34;&gt;参考&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://docs.docker.com/engine/reference/builder/&#34;&gt;https://docs.docker.com/engine/reference/builder/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;dockerfile基础&#34;&gt;&lt;a href=&#34;#dockerfile%e5%9f%ba%e7%a1%80&#34; class=&#34;header-anchor&#34;&gt;Dockerfile基础&lt;/a&gt;&lt;/h1&gt;
+
+&lt;h2 id=&#34;命令行构建&#34;&gt;&lt;a href=&#34;#%e5%91%bd%e4%bb%a4%e8%a1%8c%e6%9e%84%e5%bb%ba&#34; class=&#34;header-anchor&#34;&gt;命令行构建&lt;/a&gt;&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;docker build -f ./Dockerfile路径 -t 新镜像:版本号 -t 可以放多个 .
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;通过Dockerfile与上下文(文件目录或URL)构建镜像.&lt;/p&gt;
+&lt;p&gt;可以写一个&lt;code&gt;.dockerignore&lt;/code&gt;文件忽略某些文件, 这些文件不会被&lt;code&gt;ADD&lt;/code&gt;或&lt;code&gt;COPY&lt;/code&gt;. 写法参考&lt;code&gt;.gitignore&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;dockerfile命令格式&#34;&gt;&lt;a href=&#34;#dockerfile%e5%91%bd%e4%bb%a4%e6%a0%bc%e5%bc%8f&#34; class=&#34;header-anchor&#34;&gt;Dockerfile命令格式&lt;/a&gt;&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 行内注释, 只有#放在行首才表示注释, #在其他地方均不表示注释&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;INSTRUCTION arguments&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在最上方可写注释做预处理指令. 预处理指令包括: &lt;code&gt;syntax&lt;/code&gt;, 指定语法版本号; &lt;code&gt;escape&lt;/code&gt;, 指定转义符号. 略.&lt;/p&gt;
+&lt;p&gt;环境变量与shell类似, 以&lt;code&gt;$(v)&lt;/code&gt;, &lt;code&gt;$v&lt;/code&gt;的形式引用.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

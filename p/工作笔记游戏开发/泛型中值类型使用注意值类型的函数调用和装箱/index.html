@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="utf-8" />
+  <meta name="author" content="花落无声@brangpd" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>工作笔记：游戏开发：泛型中值类型使用注意、值类型的函数调用和装箱 | 花落无声的站点</title>
+  <link rel="stylesheet" href="/blog/css/style.css"/>
+  <link rel="stylesheet" href="/blog/css/chroma.css"/>
+  <link rel="stylesheet" href="/blog/css/fonts.css"/>
+  <link rel="stylesheet" href="/blog/css/to_top_button.css"/>
+  <link rel="stylesheet" href="/blog/abcjs/abcjs-audio.css" />
+<script defer src="/blog/abcjs/abcjs-basic-min.js"></script>
+
+
+</head>
+
+<body>
+  <nav>
+    <ul class="menu">
+      
+      <li><a href="/blog/">主页</a></li>
+      
+      <li><a href="/blog/p/">近期</a></li>
+      
+      <li><a href="/blog/pall/">全部</a></li>
+      
+      <li><a href="/blog/categories/">归档</a></li>
+      
+      <li><a href="/blog/tags/">标签</a></li>
+      
+      <li><a href="/blog/index.xml">订阅</a></li>
+      
+    </ul>
+  </nav>
+
+<article>
+  <header class="article-meta">
+    <section class="title">
+      工作笔记：游戏开发：泛型中值类型使用注意、值类型的函数调用和装箱
+    </section>
+
+    
+
+    
+
+    <section>
+      
+      
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+      
+      |
+      <a href="/blog/pid/68">PID/68</a>
+      
+      
+      
+    </section>
+
+  </header>
+
+  
+  <section>标签:
+    
+    
+    
+    
+    
+    <a href="/blog/tags/c%23/">C#</a>
+    
+  </section>
+  
+
+  
+  <section>归档:
+    
+    
+    
+    
+    <a href="/blog/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91">工作笔记：游戏开发</a>
+    
+  </section>
+  
+
+  <section class="description">
+    
+  </section>
+  
+  
+  <section>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#结论总结">结论总结</a></li>
+    <li><a href="#值类型的equals比较">值类型的Equals比较</a></li>
+    <li><a href="#值类型调用valuetype基类函数的装箱">值类型调用ValueType基类函数的装箱</a></li>
+    <li><a href="#泛型容器使用值类型">泛型容器使用值类型</a></li>
+    <li><a href="#值类型的基类valuetype定义文件参考">值类型的基类ValueType定义文件参考</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </section>
+  
+  <main>
+    
+<h1 id="结论总结"><a href="#%e7%bb%93%e8%ae%ba%e6%80%bb%e7%bb%93" class="header-anchor">结论总结</a></h1>
+<ul>
+<li>不要用<code>Equals</code>比较两个值类型。最好用自己写的<code>operator==</code>。</li>
+<li>写<code>struct</code>时，应该手动改写<code>ToString</code>、<code>GetHashCode</code>等方法。</li>
+<li>不使用值类型（包括Enum）作为Dictionary的key。</li>
+</ul>
+
+<h1 id="值类型的equals比较"><a href="#%e5%80%bc%e7%b1%bb%e5%9e%8b%e7%9a%84equals%e6%af%94%e8%be%83" class="header-anchor">值类型的Equals比较</a></h1>
+<p>在<code>ValueType</code>类中，<code>Equals</code>方法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cs" data-lang="cs"><span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="n">Equals</span><span class="p">(</span><span class="kt">object?</span> <span class="n">obj</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 因为和其他类型的Equals一样，传入的参数类型为object，导致调用a.Equals(b)函数之前会有一次b的box
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="p">==</span> <span class="n">obj</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">Type</span> <span class="n">thisType</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">GetType</span><span class="p">();</span>
+    <span class="n">Type</span> <span class="n">thatType</span> <span class="p">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">GetType</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">thatType</span> <span class="p">!=</span> <span class="n">thisType</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">object</span> <span class="n">thisObj</span> <span class="p">=</span> <span class="p">(</span><span class="kt">object</span><span class="p">)</span><span class="k">this</span><span class="p">;</span>
+    <span class="kt">object?</span> <span class="n">thisResult</span><span class="p">,</span> <span class="n">thatResult</span><span class="p">;</span>
+
+    <span class="c1">// if there are no GC references in this object we can avoid reflection
+</span><span class="c1"></span>    <span class="c1">// and do a fast memcmp
+</span><span class="c1"></span>    <span class="c1">// 判断这个类型是否可以进行位比较，如果可以直接调memcmp快速比较
+</span><span class="c1"></span>    <span class="c1">// 判断的依据是，当前类型没有包含指针，并且值的内存布局没有空隙
+</span><span class="c1"></span>    <span class="c1">// 没有包含指针即this必须是值类型，this的成员也是值类型
+</span><span class="c1"></span>    <span class="c1">// 成员变量定义，例如如果是int+char，那么空间连续，如果是char+int，那么char和int中间会为了字节对齐出现空隙，因为对整个内存调用memcmp，有空隙就不能这么快速比较
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">CanCompareBits</span><span class="p">(</span><span class="k">this</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">FastEqualsCheck</span><span class="p">(</span><span class="n">thisObj</span><span class="p">,</span> <span class="n">obj</span><span class="p">);</span>
+
+    <span class="c1">// 不能快速比较，用反射取得成员变量的值然后依次比较
+</span><span class="c1"></span>    <span class="n">FieldInfo</span><span class="p">[]</span> <span class="n">thisFields</span> <span class="p">=</span> <span class="n">thisType</span><span class="p">.</span><span class="n">GetFields</span><span class="p">(</span><span class="n">BindingFlags</span><span class="p">.</span><span class="n">Instance</span> <span class="p">|</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">Public</span> <span class="p">|</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">NonPublic</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">thisFields</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+    <span class="p">{</span>
+        <span class="n">thisResult</span> <span class="p">=</span> <span class="n">thisFields</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">GetValue</span><span class="p">(</span><span class="n">thisObj</span><span class="p">);</span>
+        <span class="n">thatResult</span> <span class="p">=</span> <span class="n">thisFields</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">GetValue</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">thisResult</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">thatResult</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="k">if</span> <span class="p">(!</span><span class="n">thisResult</span><span class="p">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">thatResult</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>所以得出的结论是，不要用<code>Equals</code>比较两个值类型。最好用自己写的<code>operator==</code>。</p>
+
+<h1 id="值类型调用valuetype基类函数的装箱"><a href="#%e5%80%bc%e7%b1%bb%e5%9e%8b%e8%b0%83%e7%94%a8valuetype%e5%9f%ba%e7%b1%bb%e5%87%bd%e6%95%b0%e7%9a%84%e8%a3%85%e7%ae%b1" class="header-anchor">值类型调用ValueType基类函数的装箱</a></h1>
+<p>值类型隐式继承自<code>ValueType</code>，<code>ValueType</code>中的其他函数如<code>GetHashCode</code>、<code>ToString</code>的调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cs" data-lang="cs"><span class="k">struct</span> <span class="nc">TestStruct</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+  <span class="k">public</span> <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">struct</span> <span class="nc">TestStruct2</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+  <span class="k">public</span> <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+  <span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="n">GetHashCode</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="p">^</span> <span class="n">b</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">TestStruct</span> <span class="n">item1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TestStruct</span> <span class="p">{</span><span class="n">a</span> <span class="p">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">b</span> <span class="p">=</span> <span class="m">2</span><span class="p">,};</span>
+<span class="n">item1</span><span class="p">.</span><span class="n">GetHashCode</span><span class="p">();</span>
+<span class="n">TestStruct2</span> <span class="n">item2</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TestStruct2</span> <span class="p">{</span><span class="n">a</span> <span class="p">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">b</span> <span class="p">=</span> <span class="m">2</span><span class="p">,};</span>
+<span class="n">item2</span><span class="p">.</span><span class="n">GetHashCode</span><span class="p">();</span>
+<span class="kt">string</span> <span class="n">item3</span> <span class="p">=</span> <span class="s">&#34;123&#34;</span><span class="p">;</span>
+<span class="n">item3</span><span class="p">.</span><span class="n">GetHashCode</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>IL代码：</p>
+<pre><code>IL_0001: ldloca.s     V_3
+IL_0003: initobj      TestCSharp/TestStruct
+IL_0009: ldloca.s     V_3
+IL_000b: ldc.i4.1
+IL_000c: stfld        int32 TestCSharp/TestStruct::a
+IL_0011: ldloca.s     V_3
+IL_0013: ldc.i4.2
+IL_0014: stfld        int32 TestCSharp/TestStruct::b
+IL_0019: ldloc.3      // V_3
+IL_001a: stloc.0      // item1
+
+IL_001b: ldloca.s     item1
+IL_001d: constrained. TestCSharp/TestStruct
+IL_0023: callvirt     instance int32 [netstandard]System.Object::GetHashCode()
+IL_0028: pop
+
+IL_0029: ldloca.s     V_4
+IL_002b: initobj      TestCSharp/TestStruct2
+IL_0031: ldloca.s     V_4
+IL_0033: ldc.i4.1
+IL_0034: stfld        int32 TestCSharp/TestStruct2::a
+IL_0039: ldloca.s     V_4
+IL_003b: ldc.i4.2
+IL_003c: stfld        int32 TestCSharp/TestStruct2::b
+IL_0041: ldloc.s      V_4
+IL_0043: stloc.1      // item2
+
+IL_0044: ldloca.s     item2
+IL_0046: constrained. TestCSharp/TestStruct2
+IL_004c: callvirt     instance int32 [netstandard]System.Object::GetHashCode()
+IL_0051: pop
+
+IL_0052: ldstr        &quot;123&quot;
+IL_0057: stloc.2      // item3
+
+IL_0058: ldloc.2      // item3
+IL_0059: callvirt     instance int32 [netstandard]System.Object::GetHashCode()
+IL_005e: pop
+</code></pre><p>IL2CPP的C++码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// TestStruct item1 = new TestStruct {a = 1, b = 2,};
+</span><span class="c1"></span><span class="n">il2cpp_codegen_initobj</span><span class="p">((</span><span class="o">&amp;</span><span class="n">V_2</span><span class="p">),</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">TestStruct_tF3614878A409BD1839E4E60455385DFA4A4A1AE0</span> <span class="p">));</span>
+<span class="p">(</span><span class="o">&amp;</span><span class="n">V_2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">set_a_0</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">(</span><span class="o">&amp;</span><span class="n">V_2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">set_b_1</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">TestStruct_tF3614878A409BD1839E4E60455385DFA4A4A1AE0</span>  <span class="n">L_0</span> <span class="o">=</span> <span class="n">V_2</span><span class="p">;</span>
+<span class="n">V_0</span> <span class="o">=</span> <span class="n">L_0</span><span class="p">;</span>
+<span class="c1">// item1.GetHashCode();
+</span><span class="c1"></span><span class="n">RuntimeObject</span> <span class="o">*</span> <span class="n">L_1</span> <span class="o">=</span> <span class="n">Box</span><span class="p">(</span><span class="n">TestStruct_tF3614878A409BD1839E4E60455385DFA4A4A1AE0_il2cpp_TypeInfo_var</span><span class="p">,</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">V_0</span><span class="p">));</span>
+<span class="n">NullCheck</span><span class="p">(</span><span class="n">L_1</span><span class="p">);</span>
+<span class="kt">int32_t</span> <span class="n">L_2</span><span class="p">;</span>
+<span class="n">L_2</span> <span class="o">=</span> <span class="n">VirtFuncInvoker0</span><span class="o">&lt;</span> <span class="kt">int32_t</span> <span class="o">&gt;::</span><span class="n">Invoke</span><span class="p">(</span><span class="mi">2</span> <span class="cm">/* System.Int32 System.Object::GetHashCode() */</span><span class="p">,</span> <span class="n">L_1</span><span class="p">);</span>
+<span class="n">V_0</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">TestStruct_tF3614878A409BD1839E4E60455385DFA4A4A1AE0</span> <span class="o">*</span><span class="p">)</span><span class="n">UnBox</span><span class="p">(</span><span class="n">L_1</span><span class="p">);</span>
+<span class="c1">// TestStruct2 item2 = new TestStruct2 {a = 1, b = 2,};
+</span><span class="c1"></span><span class="n">il2cpp_codegen_initobj</span><span class="p">((</span><span class="o">&amp;</span><span class="n">V_3</span><span class="p">),</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">TestStruct2_t1FD7773843B69E61FA3A6112DE4E21AD021DC58D</span> <span class="p">));</span>
+<span class="p">(</span><span class="o">&amp;</span><span class="n">V_3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">set_a_0</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">(</span><span class="o">&amp;</span><span class="n">V_3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">set_b_1</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">TestStruct2_t1FD7773843B69E61FA3A6112DE4E21AD021DC58D</span>  <span class="n">L_3</span> <span class="o">=</span> <span class="n">V_3</span><span class="p">;</span>
+<span class="n">V_1</span> <span class="o">=</span> <span class="n">L_3</span><span class="p">;</span>
+<span class="c1">// item2.GetHashCode();
+</span><span class="c1"></span><span class="kt">int32_t</span> <span class="n">L_4</span><span class="p">;</span>
+<span class="n">L_4</span> <span class="o">=</span> <span class="n">TestStruct2_GetHashCode_m0624B850EE65EA2C0E6B7BE02454F089FB5E8644</span><span class="p">((</span><span class="n">TestStruct2_t1FD7773843B69E61FA3A6112DE4E21AD021DC58D</span> <span class="o">*</span><span class="p">)(</span><span class="o">&amp;</span><span class="n">V_1</span><span class="p">),</span> <span class="cm">/*hidden argument*/</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="c1">// string item3 = &#34;123&#34;;
+</span><span class="c1">// item3.GetHashCode();
+</span><span class="c1"></span><span class="n">NullCheck</span><span class="p">(</span><span class="n">_stringLiteral0D5399508427CE79556CDA71918020C1E8D15B53</span><span class="p">);</span>
+<span class="kt">int32_t</span> <span class="n">L_5</span><span class="p">;</span>
+<span class="n">L_5</span> <span class="o">=</span> <span class="n">VirtFuncInvoker0</span><span class="o">&lt;</span> <span class="kt">int32_t</span> <span class="o">&gt;::</span><span class="n">Invoke</span><span class="p">(</span><span class="mi">2</span> <span class="cm">/* System.Int32 System.Object::GetHashCode() */</span><span class="p">,</span> <span class="n">_stringLiteral0D5399508427CE79556CDA71918020C1E8D15B53</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>观察IL代码，<code>callvirt method</code>指令之前的<code>constrained thistype</code>指令，参数为类型<code>thistype</code>，当且仅当值类型继承自<code>Object</code>/<code>Enum</code>/<code>ValueType</code>且没有override这个<code>method</code>（<code>ToString</code>、<code>GetHashCode</code>等）时，会进行装箱。如果override了某个方法，调用时不会装箱，并且转化为对overridden的函数的<code>call</code>指令。<br />
+观察IL2CPP生成的代码，其中<code>TestStruct2</code>override一个<code>GetHashCode</code>，在生成代码时，<code>TestStruct</code>进行了一次box，并进行了虚函数调用<code>VirtFuncInvoker0&lt; int32_t &gt;::Invoke(2 /* System.Int32 System.Object::GetHashCode() */, L_1)</code>，而<code>TestStruct2</code>没有进行box，并且直接调用函数<code>TestStruct2_GetHashCode_m0624B850EE65EA2C0E6B7BE02454F089FB5E8644</code>。证明该规则适用。<br />
+所以写<code>struct</code>时，应该手动改写<code>ToString</code>、<code>GetHashCode</code>等方法。</p>
+
+<h1 id="泛型容器使用值类型"><a href="#%e6%b3%9b%e5%9e%8b%e5%ae%b9%e5%99%a8%e4%bd%bf%e7%94%a8%e5%80%bc%e7%b1%bb%e5%9e%8b" class="header-anchor">泛型容器使用值类型</a></h1>
+<p>以<code>Dictionary</code>为例，定义一个<code>TestStruct</code>，放到一个<code>dTestStruct</code>的字典中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cs" data-lang="cs"><span class="k">struct</span> <span class="nc">TestStruct</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+  <span class="k">public</span> <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">TestStruct</span><span class="p">,</span> <span class="kt">int</span><span class="p">&gt;</span> <span class="n">dTestStruct</span> <span class="p">=</span> <span class="k">new</span><span class="p">();</span>
+<span class="n">TestStruct</span> <span class="n">item1</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span><span class="n">a</span> <span class="p">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">b</span> <span class="p">=</span> <span class="m">2</span><span class="p">};</span>
+<span class="n">dTestStruct</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>public void Add(TKey key, TValue value)</code>函数调用了<code>private bool TryInsert(TKey key, TValue value, InsertionBehavior behavior)</code>函数，该函数中，由于执行了<code>key == null</code>空值比较，对值类型进行了装箱，同时使用到了<code>key</code>的哈希函数<code>GetHashCode</code>，又可能导致一次装箱。</p>
+<p>结论：不使用值类型（包括Enum）作为Dictionary的key。</p>
+
+<h1 id="值类型的基类valuetype定义文件参考"><a href="#%e5%80%bc%e7%b1%bb%e5%9e%8b%e7%9a%84%e5%9f%ba%e7%b1%bbvaluetype%e5%ae%9a%e4%b9%89%e6%96%87%e4%bb%b6%e5%8f%82%e8%80%83" class="header-anchor">值类型的基类ValueType定义文件参考</a></h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cs" data-lang="cs"><span class="c1">// Licensed to the .NET Foundation under one or more agreements.
+</span><span class="c1">// The .NET Foundation licenses this file to you under the MIT license.
+</span><span class="c1"></span>
+<span class="cm">/*============================================================
+</span><span class="cm">**
+</span><span class="cm">**
+</span><span class="cm">**
+</span><span class="cm">** Purpose: Base class for all value classes.
+</span><span class="cm">**
+</span><span class="cm">**
+</span><span class="cm">===========================================================*/</span>
+
+<span class="k">using</span> <span class="nn">System.Diagnostics.CodeAnalysis</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Reflection</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Runtime.CompilerServices</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">System</span>
+<span class="p">{</span>
+<span class="na">    [Serializable]</span>
+<span class="na">    [System.Runtime.CompilerServices.TypeForwardedFrom(&#34;mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&#34;)]</span>
+    <span class="k">public</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">ValueType</span>
+    <span class="p">{</span>
+<span class="na">        [UnconditionalSuppressMessage(&#34;ReflectionAnalysis&#34;, &#34;IL2075:UnrecognizedReflectionPattern&#34;,
+</span><span class="na">            Justification = &#34;Trimmed fields don&#39;t make a difference for equality&#34;)]</span>
+        <span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="n">Equals</span><span class="p">(</span><span class="kt">object?</span> <span class="n">obj</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="p">==</span> <span class="n">obj</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">Type</span> <span class="n">thisType</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">GetType</span><span class="p">();</span>
+            <span class="n">Type</span> <span class="n">thatType</span> <span class="p">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">GetType</span><span class="p">();</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">thatType</span> <span class="p">!=</span> <span class="n">thisType</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="kt">object</span> <span class="n">thisObj</span> <span class="p">=</span> <span class="p">(</span><span class="kt">object</span><span class="p">)</span><span class="k">this</span><span class="p">;</span>
+            <span class="kt">object?</span> <span class="n">thisResult</span><span class="p">,</span> <span class="n">thatResult</span><span class="p">;</span>
+
+            <span class="c1">// if there are no GC references in this object we can avoid reflection
+</span><span class="c1"></span>            <span class="c1">// and do a fast memcmp
+</span><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">CanCompareBits</span><span class="p">(</span><span class="k">this</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">FastEqualsCheck</span><span class="p">(</span><span class="n">thisObj</span><span class="p">,</span> <span class="n">obj</span><span class="p">);</span>
+
+            <span class="n">FieldInfo</span><span class="p">[]</span> <span class="n">thisFields</span> <span class="p">=</span> <span class="n">thisType</span><span class="p">.</span><span class="n">GetFields</span><span class="p">(</span><span class="n">BindingFlags</span><span class="p">.</span><span class="n">Instance</span> <span class="p">|</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">Public</span> <span class="p">|</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">NonPublic</span><span class="p">);</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">thisFields</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+            <span class="p">{</span>
+                <span class="n">thisResult</span> <span class="p">=</span> <span class="n">thisFields</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">GetValue</span><span class="p">(</span><span class="n">thisObj</span><span class="p">);</span>
+                <span class="n">thatResult</span> <span class="p">=</span> <span class="n">thisFields</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">GetValue</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">thisResult</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">thatResult</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="k">if</span> <span class="p">(!</span><span class="n">thisResult</span><span class="p">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">thatResult</span><span class="p">))</span>
+                <span class="p">{</span>
+                    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="na">
+</span><span class="na">        [MethodImpl(MethodImplOptions.InternalCall)]</span>
+        <span class="k">private</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="n">CanCompareBits</span><span class="p">(</span><span class="kt">object</span> <span class="n">obj</span><span class="p">);</span>
+<span class="na">
+</span><span class="na">        [MethodImpl(MethodImplOptions.InternalCall)]</span>
+        <span class="k">private</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="n">FastEqualsCheck</span><span class="p">(</span><span class="kt">object</span> <span class="n">a</span><span class="p">,</span> <span class="kt">object</span> <span class="n">b</span><span class="p">);</span>
+
+        <span class="cm">/*=================================GetHashCode==================================
+</span><span class="cm">        **Action: Our algorithm for returning the hashcode is a little bit complex.  We look
+</span><span class="cm">        **        for the first non-static field and get its hashcode.  If the type has no
+</span><span class="cm">        **        non-static fields, we return the hashcode of the type.  We can&#39;t take the
+</span><span class="cm">        **        hashcode of a static member because if that member is of the same type as
+</span><span class="cm">        **        the original type, we&#39;ll end up in an infinite loop.
+</span><span class="cm">        **Returns: The hashcode for the type.
+</span><span class="cm">        **Arguments: None.
+</span><span class="cm">        **Exceptions: None.
+</span><span class="cm">        ==============================================================================*/</span>
+<span class="na">        [MethodImpl(MethodImplOptions.InternalCall)]</span>
+        <span class="k">public</span> <span class="k">extern</span> <span class="k">override</span> <span class="kt">int</span> <span class="n">GetHashCode</span><span class="p">();</span>
+<span class="na">
+</span><span class="na">        [MethodImpl(MethodImplOptions.InternalCall)]</span>
+        <span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">int</span> <span class="n">GetHashCodeOfPtr</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">ptr</span><span class="p">);</span>
+
+        <span class="k">public</span> <span class="k">override</span> <span class="kt">string?</span> <span class="n">ToString</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">ToString</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="参考"><a href="#%e5%8f%82%e8%80%83" class="header-anchor">参考</a></h1>
+<p><a href="https://www.cnblogs.com/lbq1221119/archive/2009/03/03/1402551.html">ValueType.Equals(null)的底层实现及CLR虚拟机对其结构支持</a></p>
+<p><a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.emit.opcodes.constrained?redirectedfrom=MSDN&amp;view=netcore-3.1">OpCodes.Constrained Field</a></p>
+
+  </main>
+</article>
+
+
+<script src="https://beaudar.lipk.org/client.js"
+        repo="brangpd/repo-for-comment"
+        issue-term="68"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+<link rel="stylesheet" href="/blog/katex/katex.min.css" />
+
+
+<script defer src="/blog/katex/katex.min.js"></script>
+
+
+<script defer src="/blog/katex/contrib/auto-render.min.js"></script>
+<script src="/blog/js/katex.js"></script>
+<footer>
+
+© <a href="mailto:brangpd@outlook.com">brangpd</a>
+</footer>
+<button onclick="topFunction()" id="toTopButton">↑↑↑</button>
+<script src="/blog/js/to_top_button.js"></script>
+<script src="/blog/js/custom.js"></script>
+</body>
+</html>

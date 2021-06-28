@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="utf-8" />
+  <meta name="author" content="花落无声@brangpd" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>工作笔记：游戏开发：垃圾回收与大对象堆机制 | 花落无声的站点</title>
+  <link rel="stylesheet" href="/blog/css/style.css"/>
+  <link rel="stylesheet" href="/blog/css/chroma.css"/>
+  <link rel="stylesheet" href="/blog/css/fonts.css"/>
+  <link rel="stylesheet" href="/blog/css/to_top_button.css"/>
+  <link rel="stylesheet" href="/blog/abcjs/abcjs-audio.css" />
+<script defer src="/blog/abcjs/abcjs-basic-min.js"></script>
+
+
+</head>
+
+<body>
+  <nav>
+    <ul class="menu">
+      
+      <li><a href="/blog/">主页</a></li>
+      
+      <li><a href="/blog/p/">近期</a></li>
+      
+      <li><a href="/blog/pall/">全部</a></li>
+      
+      <li><a href="/blog/categories/">归档</a></li>
+      
+      <li><a href="/blog/tags/">标签</a></li>
+      
+      <li><a href="/blog/index.xml">订阅</a></li>
+      
+    </ul>
+  </nav>
+
+<article>
+  <header class="article-meta">
+    <section class="title">
+      工作笔记：游戏开发：垃圾回收与大对象堆机制
+    </section>
+
+    
+
+    
+
+    <section>
+      
+      
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+      
+      |
+      <a href="/blog/pid/83">PID/83</a>
+      
+      
+      
+    </section>
+
+  </header>
+
+  
+  <section>标签:
+    
+    
+    
+    
+    
+    <a href="/blog/tags/c%23/">C#</a>
+    
+  </section>
+  
+
+  
+  <section>归档:
+    
+    
+    
+    
+    <a href="/blog/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91">工作笔记：游戏开发</a>
+    
+  </section>
+  
+
+  <section class="description">
+    
+  </section>
+  
+  
+  <section>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#垃圾回收">垃圾回收</a>
+      <ul>
+        <li><a href="#相关概念和术语">相关概念和术语</a>
+          <ul>
+            <li><a href="#windows-内存-api">Windows 内存 API</a></li>
+            <li><a href="#windows虚拟内存管理中的状态和概念">Windows虚拟内存管理中的状态和概念</a></li>
+            <li><a href="#托管堆-the-managed-heap">托管堆 The managed heap</a></li>
+            <li><a href="#代数-generations">代数 Generations</a></li>
+          </ul>
+        </li>
+        <li><a href="#程序中的内存申请">程序中的内存申请</a></li>
+        <li><a href="#垃圾回收触发条件">垃圾回收触发条件</a></li>
+        <li><a href="#小对象">小对象</a></li>
+        <li><a href="#大对象">大对象</a></li>
+      </ul>
+    </li>
+    <li><a href="#阅读材料">阅读材料</a></li>
+  </ul>
+</nav>
+  </section>
+  
+  <main>
+    
+<h1 id="垃圾回收"><a href="#%e5%9e%83%e5%9c%be%e5%9b%9e%e6%94%b6" class="header-anchor">垃圾回收</a></h1>
+
+<h2 id="相关概念和术语"><a href="#%e7%9b%b8%e5%85%b3%e6%a6%82%e5%bf%b5%e5%92%8c%e6%9c%af%e8%af%ad" class="header-anchor">相关概念和术语</a></h2>
+
+<h3 id="windows-内存-api"><a href="#windows-%e5%86%85%e5%ad%98-api" class="header-anchor">Windows 内存 API</a></h3>
+<p><a href="https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc"><code>VirtualAlloc</code></a>/<a href="https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualfree"><code>VirtualFree</code></a>：Windows系统调用API，用于在当前进程的虚拟内存空间中操作一页内存。Windows编程可用，Windows平台上GC也会调用这两个API来向操作系统申请和退还内存。</p>
+
+<h3 id="windows虚拟内存管理中的状态和概念"><a href="#windows%e8%99%9a%e6%8b%9f%e5%86%85%e5%ad%98%e7%ae%a1%e7%90%86%e4%b8%ad%e7%9a%84%e7%8a%b6%e6%80%81%e5%92%8c%e6%a6%82%e5%bf%b5" class="header-anchor">Windows虚拟内存管理中的状态和概念</a></h3>
+<ul>
+<li>Managed: CLR托管的内存或者对象，相对于C/C++那种没有托管的、需要用户自己申请和释放的内存，此外，像文件的handle、网络连接这种，必须由用户清理的也称为 unmanaged resources，需要手动Dispose（using或者在析构方法中释放）</li>
+<li>Reserve: 申明“预定”一块虚拟内存（但并没有在物理内存上真正分配），这块虚拟内存可以稍后被使用，但在被使用之前必须先commit</li>
+<li>Commit: 申明commit一块reserved的虚拟内存，物理内存会在用户第一次访问时真正地分配，并保证用户第一次访问时，该内存块都被置为0</li>
+<li>Compact: 托管堆中分配的内存压缩——去除内存空隙的过程</li>
+<li>Decommit: 内存标记为Reserve，可以占用的内存，一般在一段虚拟内存的后面</li>
+<li>Free: commit过，但是被重置清零过的内存，作为两个对象的内存之间空隙</li>
+</ul>
+
+<h3 id="托管堆-the-managed-heap"><a href="#%e6%89%98%e7%ae%a1%e5%a0%86-the-managed-heap" class="header-anchor">托管堆 The managed heap</a></h3>
+<ul>
+<li>CLR为用户分配内存称为虚拟内存（virtual address），这里不是指操作系统概念的那层虚拟内存，或者说是操作系统虚拟内存上的一层新的虚拟内存</li>
+<li>用户申请内存时，不要像C语言那样向上取整到2的倍数</li>
+<li>托管堆分为两种：LOH (large object heap), SOH (small object heap)。默认&gt;=85000字节的对象称为大对象（一般是数组），将分配到大对象堆</li>
+</ul>
+
+<h3 id="代数-generations"><a href="#%e4%bb%a3%e6%95%b0-generations" class="header-anchor">代数 Generations</a></h3>
+<ul>
+<li>代数分为0、1、2，新分配的小内存为0代。大对象始终视为2代。</li>
+<li>每次GC过后没有被回收的对象将提升1代。</li>
+<li>当对x代进行GC时，&lt;=x的每一代对象都会被GC。</li>
+<li>也就是说，越新的内存越短命，越老的内存越长命，这是GC蕴含的前提</li>
+</ul>
+
+<h2 id="程序中的内存申请"><a href="#%e7%a8%8b%e5%ba%8f%e4%b8%ad%e7%9a%84%e5%86%85%e5%ad%98%e7%94%b3%e8%af%b7" class="header-anchor">程序中的内存申请</a></h2>
+<p>在C#中通过调用<code>new</code>来创建对象，步骤为：</p>
+<ol>
+<li>计算当前类型需要的字节数</li>
+<li>（64位）添加8字节的类型指针，和8字节的sync block index</li>
+<li>CLR申请一块虚拟内存</li>
+</ol>
+
+<h2 id="垃圾回收触发条件"><a href="#%e5%9e%83%e5%9c%be%e5%9b%9e%e6%94%b6%e8%a7%a6%e5%8f%91%e6%9d%a1%e4%bb%b6" class="header-anchor">垃圾回收触发条件</a></h2>
+<ul>
+<li>操作系统内存不足，要求退回虚拟内存</li>
+<li>托管堆上已用内存、某一代的内存超过某个阈值（该值会在运行时动态调整）</li>
+<li><code>System.GC.Collect()</code></li>
+</ul>
+
+<h2 id="小对象"><a href="#%e5%b0%8f%e5%af%b9%e8%b1%a1" class="header-anchor">小对象</a></h2>
+<ul>
+<li>当进程创建时，runtime保留一块连续的内存区域，称为托管堆，托管堆维护一个指针，该指针表示当前可以分配的虚拟内存空间地址，分配内存后该指针后移为下一次分配做准备，所以分配内存非常快。大概类似于：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">|             托管堆            |
+^指针一开始指向托管堆开头
+| A |                          |
+    ^分配一个A
+| A |   B   |                  |
+            ^再来一个B
+</code></pre></td></tr></table>
+</div>
+</div><p>小对象死亡后，GC时会进行压缩（compact）的操作，将活着的内存块也移动到一起。</p>
+</li>
+<li>一开始会申请一段作为托管堆，在需要的时候可以多申请几段，或者返回给操作系统。</li>
+<li>在1代或2代的GC中，GC会将没有任何活跃对象的段通过<code>VirtualFree</code>退回给操作系统。</li>
+<li>在GC过后，每一段最后一个活跃对象之后的内存都会被decommit（除了p0指针所在的那一段，因为那一段的内存马上会被用户申请）</li>
+<li>垃圾回收器通过探测应用的stack roots、GC handles、静态数据，应用优化算法在合适的时机回收垃圾。</li>
+<li>示例：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">初始
+|                                         |
+^p0 0代的起始指针
+^p1 1代的起始指针
+^p2 2代的起始指针
+
+申请小对象A
+| A0 |                                    |
+^p1  ^p0
+
+申请B、C
+| A0 | B0 | C0 |                          |
+^p1            ^p0
+
+B死亡
+| A0 | B0-| C0 |                          |
+^p1            ^p0
+
+GC，A、C之间的空隙被压缩，A、C内存上连续。并且提升为1代
+| A1 | C1 |                               |
+          ^p0
+          ^p1
+
+申请D、E、F
+| A1 | C1 | D0 | E0 | F0 |                |
+          ^p1            ^p0
+
+C、D死亡
+| A1 | C1-| D0-| E0 | F0 |                |
+          ^p1            ^p0
+
+GC，此时发现1代占的空间不多，可以依然只对0代进行GC
+| A1 | C1-| E1 | F1 |                     |
+                    ^p0
+                    ^p1
+
+申请G、H
+| A1 | C1-| E1 | F1 | G0      |   H0    | |
+                                        ^p0
+
+再I，发现不够，1代也太多了，从1代开始GC
+| A2 | E2 | F2 | G1        |   H1    | I0 |
+               ^p2                   ^p1  ^p0
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<h2 id="大对象"><a href="#%e5%a4%a7%e5%af%b9%e8%b1%a1" class="header-anchor">大对象</a></h2>
+<ul>
+<li>大对象，默认是&gt;=85000字节的对象，一般是数组。在CLR中会有多个段来存储。</li>
+<li>大对象的存储位置独立于小对象的存储位置，称为大对象堆LOH (large object heap)。</li>
+<li>大对象视为2代，当2代小对象GC时会同时对大对象GC，同样，大对象GC时会同时对2代小对象GC</li>
+<li>大对象的GC和小对象不同，默认不会像小对象GC一样压缩去除空隙（可以设置参数使大对象也压缩），而是把某个死亡对象的那块空间声明为可用的（free），相邻的可用空间将合并为一块，并维护一个可用空间的列表，在下一次申请大对象时从该列表中选取空间。</li>
+<li>当大对象的段空间不足时，首先GC申请新的段，如果申请失败，将发起2代的GC</li>
+<li>示例：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">|                            |
+
+分配大对象ABCD
+| A |  B   | C | D |         |
+
+BC死亡，将BC空间置为可用
+| A |  -       | D |         |
+
+申请E，发现原来BC的位置空间足够
+| A |  E    |  | D |         |
+
+申请F，发现中间不够，放在后面
+| A |  E    |  | D |  F  |   |
+
+一段如果不够，向操作系统多申请几段
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>大对象将带来一些问题
+<ul>
+<li>分配开销：因为分配新对象需要保证分配到的新内存全部置0，这个清零操作存在开销。</li>
+<li>收集开销：当2代小对象或者大对象GC时，如果有很多2代对象存在，将会导致巨大开销（因为2代小对象意味着这些对象存活的时间很长，将长时间不会死亡），因此，避免频繁申请大内存。</li>
+<li>大对象一般是数组，如果数组的元素中不存在引用对象，那么GC时这整个数组会被当做一个对象处理，会比较快；反之，如果数组元素中存在引用，那么GC时需要对这个数组中的每个元素中的引用元素都扫描一遍，以确认其引用的对象是否存活，举例说明：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cs" data-lang="cs"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
+  <span class="n">Node</span> <span class="n">left</span><span class="p">;</span>
+  <span class="n">Node</span> <span class="n">right</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">Node</span> <span class="p">[]</span><span class="n">nodes</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">[</span><span class="n">nums</span><span class="p">];</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这种写法中，GC遇到<code>nodes</code>数组需要对每个<code>nodes[i]</code>的<code>left</code>和<code>right</code>都遍历。这里面这些<code>Node</code>左右节点，一般是外面<code>nodes</code>数组中的某个元素，只要<code>nodes</code>存活，这些左右节点肯定存活，所以对于这些元素的左右节点的遍历操作是多余的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cs" data-lang="cs"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">left</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">right</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">Node</span> <span class="p">[]</span><span class="n">nodes</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">[</span><span class="n">nums</span><span class="p">];</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这种写法，GC遇到<code>nodes</code>数组只当它是一个对象扫一遍，不会进到每个<code>Node</code>里面。所以建议采用这种写法。</p>
+</li>
+</ul>
+</li>
+</ul>
+
+<h1 id="阅读材料"><a href="#%e9%98%85%e8%af%bb%e6%9d%90%e6%96%99" class="header-anchor">阅读材料</a></h1>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/">Garbage collection</a></li>
+<li><a href="https://www.microsoftpressstore.com/articles/article.aspx?p=2224054&amp;seqNum=2">The Managed Heap and Garbage Collection in the CLR</a></li>
+</ul>
+
+  </main>
+</article>
+
+
+<script src="https://beaudar.lipk.org/client.js"
+        repo="brangpd/repo-for-comment"
+        issue-term="83"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+<link rel="stylesheet" href="/blog/katex/katex.min.css" />
+
+
+<script defer src="/blog/katex/katex.min.js"></script>
+
+
+<script defer src="/blog/katex/contrib/auto-render.min.js"></script>
+<script src="/blog/js/katex.js"></script>
+<footer>
+
+© <a href="mailto:brangpd@outlook.com">brangpd</a>
+</footer>
+<button onclick="topFunction()" id="toTopButton">↑↑↑</button>
+<script src="/blog/js/to_top_button.js"></script>
+<script src="/blog/js/custom.js"></script>
+</body>
+</html>

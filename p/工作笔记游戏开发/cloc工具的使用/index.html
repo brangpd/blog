@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="utf-8" />
+  <meta name="author" content="花落无声@brangpd" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>工作笔记：游戏开发：CLOC工具的使用 | 花落无声的站点</title>
+  <link rel="stylesheet" href="/blog/css/style.css"/>
+  <link rel="stylesheet" href="/blog/css/chroma.css"/>
+  <link rel="stylesheet" href="/blog/css/fonts.css"/>
+  <link rel="stylesheet" href="/blog/css/to_top_button.css"/>
+  <link rel="stylesheet" href="/blog/abcjs/abcjs-audio.css" />
+<script defer src="/blog/abcjs/abcjs-basic-min.js"></script>
+
+
+</head>
+
+<body>
+  <nav>
+    <ul class="menu">
+      
+      <li><a href="/blog/">主页</a></li>
+      
+      <li><a href="/blog/p/">近期</a></li>
+      
+      <li><a href="/blog/pall/">全部</a></li>
+      
+      <li><a href="/blog/categories/">归档</a></li>
+      
+      <li><a href="/blog/tags/">标签</a></li>
+      
+      <li><a href="/blog/index.xml">订阅</a></li>
+      
+    </ul>
+  </nav>
+
+<article>
+  <header class="article-meta">
+    <section class="title">
+      工作笔记：游戏开发：CLOC工具的使用
+    </section>
+
+    
+
+    
+
+    <section>
+      
+      
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+      
+      |
+      <a href="/blog/pid/82">PID/82</a>
+      
+      
+      
+    </section>
+
+  </header>
+
+  
+  <section>标签:
+    
+    
+    
+    
+    
+    <a href="/blog/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+    
+  </section>
+  
+
+  
+  <section>归档:
+    
+    
+    
+    
+    <a href="/blog/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91">工作笔记：游戏开发</a>
+    
+  </section>
+  
+
+  <section class="description">
+    
+  </section>
+  
+  
+  <section>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#cloc">CLOC</a></li>
+    <li><a href="#计算代码行数">计算代码行数</a></li>
+    <li><a href="#比较">比较</a></li>
+    <li><a href="#修改输出格式">修改输出格式</a></li>
+  </ul>
+</nav>
+  </section>
+  
+  <main>
+    
+<h1 id="cloc"><a href="#cloc" class="header-anchor">CLOC</a></h1>
+<p>仓库地址：<a href="https://github.com/AlDanial/cloc">https://github.com/AlDanial/cloc</a></p>
+<p>用于代码行数的计算。输入的参数可以为文件、压缩包、目录、或者git的提交记录或者分支等等。</p>
+
+<h1 id="计算代码行数"><a href="#%e8%ae%a1%e7%ae%97%e4%bb%a3%e7%a0%81%e8%a1%8c%e6%95%b0" class="header-anchor">计算代码行数</a></h1>
+<p>例如有<code>test.cpp</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// COMMENT
+</span><span class="c1"></span>        <span class="cm">/* COMMENT
+</span><span class="cm">         * COMMENT */</span>
+
+<span class="p">}</span> <span class="c1">// COMMENT
+</span><span class="c1"></span>
+
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">cloc test.cpp
+</code></pre></td></tr></table>
+</div>
+</div><p>默认将会计算并展示各种语言的文件数量、空白行数（包括只有空格缩进的行）、注释行数（不含在某一行代码后的注释）、去掉注释和空行之后的有用行数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">       1 text file.
+       1 unique file.
+       0 files ignored.
+
+github.com/AlDanial/cloc v 1.90  T=0.02 s (51.5 files/s, 515.4 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+C++                              1              4              3              3
+-------------------------------------------------------------------------------
+</code></pre></td></tr></table>
+</div>
+</div><p><code>--by-file</code>选项根据每个文件分别计算，<code>--by-file-by-lang</code>先分别计算每个文件，再根据语言计算。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">cp test.cpp test.c
+cloc test.cpp test.c --skip-uniqueness --by-file <span class="c1"># 默认会跳过完全相同的文件，只计算其中一个</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">       2 text files.
+       2 unique files.
+       0 files ignored.
+
+github.com/AlDanial/cloc v 1.90  T=0.02 s (93.2 files/s, 931.9 lines/s)
+-------------------------------------------------------------------------------
+File                             blank        comment           code
+-------------------------------------------------------------------------------
+test.c                               4              3              3
+test.cpp                             4              3              3
+-------------------------------------------------------------------------------
+SUM:                                 8              6              6
+-------------------------------------------------------------------------------
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">cloc test.cpp test.c --skip-uniqueness --by-file-by-lang <span class="c1"># 默认会跳过完全相同的文件，只计算其中一个</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">       2 text files.
+       2 unique files.
+       0 files ignored.
+
+github.com/AlDanial/cloc v 1.90  T=0.02 s (86.7 files/s, 866.7 lines/s)
+-------------------------------------------------------------------------------
+File                             blank        comment           code
+-------------------------------------------------------------------------------
+test.c                               4              3              3
+test.cpp                             4              3              3
+-------------------------------------------------------------------------------
+SUM:                                 8              6              6
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+C                                1              4              3              3
+C++                              1              4              3              3
+-------------------------------------------------------------------------------
+SUM:                             2              8              6              6
+-------------------------------------------------------------------------------
+</code></pre></td></tr></table>
+</div>
+</div><p>参数也可以传入压缩包或者文件夹，如果是压缩包，会自动解压出其中的文件并当作文件夹处理，结果都一样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">wget https://github.com/AlDanial/cloc/releases/download/v1.90/cloc-1.90.tar.gz
+cloc cloc-1.90.tar.gz
+tar xf cloc-1.90.tar.gz
+cloc cloc-1.90
+</code></pre></td></tr></table>
+</div>
+</div><p>在Windows下需要安装tar，或者指定解压方法，例如用7z解压：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bat" data-lang="bat">cloc cloc-1.90.tar.gz --extract-with=<span class="s2">&#34;7z x &gt;FILE&lt;&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以通过以下选项筛选：</p>
+<ul>
+<li><code>--exclude-dir=A,B,C</code>：不计算所有目录名为<code>A</code>,<code>B</code>,<code>C</code>之下的文件，只是某个目录自己的名字，不能含文件分割符</li>
+<li><code>--exclude-ext=cs,cpp</code>/<code>--include-ext</code>：（不）计算<code>*.cs</code>,<code>*.cpp</code>文件</li>
+<li><code>--exlcude-lang=C++,YAML</code>/<code>--include-lang</code>：（不）计算C++、YAML文件，具体语言名称参见<code>cloc --show-lang</code></li>
+<li><code>--match-d=</code>,<code>--match-f</code>,<code>--not-match-d</code>,<code>--not-match-f</code>指定一个Perl正则表达式来筛选文件，除了<code>--match-d</code>，其他几个选项默认都只匹配文件自己的名字，如果要匹配完整路径需加上<code>--full-path</code>选项</li>
+</ul>
+<p>也可以直接<code>find</code>之后通过管道传进来。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">find -type f -name <span class="s1">&#39;*.c&#39;</span> -o -name <span class="s1">&#39;*.cpp&#39;</span> <span class="p">|</span> cloc --list-file -
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">      16 text files.
+       9 unique files.
+       8 files ignored.
+
+github.com/AlDanial/cloc v 1.90  T=0.03 s (339.0 files/s, 51872.2 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+C++                              2            125            169            547
+C                                7            110             72            354
+-------------------------------------------------------------------------------
+SUM:                             9            235            241            901
+-------------------------------------------------------------------------------
+</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="比较"><a href="#%e6%af%94%e8%be%83" class="header-anchor">比较</a></h1>
+<p>可以比较两个输入参数的不同。比较时，第一个为旧对象，第二个为新对象。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">cp test.cpp test.2.cpp
+<span class="nb">echo</span> <span class="s1">&#39;/**/&#39;</span> &gt;&gt; test.2.cpp
+cloc --diff test.cpp test.2.cpp
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">       1 text file.
+       1 text file.
+       0 files ignored.
+
+github.com/AlDanial/cloc v 1.90  T=0.02 s (47.2 files/s, 330.4 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+C++
+ same                            0              0              3              3
+ modified                        1              0              0              0
+ added                           0              0              1              0
+ removed                         0              0              0              0
+-------------------------------------------------------------------------------
+SUM:
+ same                            0              0              3              3
+ modified                        1              0              0              0
+ added                           0              0              1              0
+ removed                         0              0              0              0
+-------------------------------------------------------------------------------
+</code></pre></td></tr></table>
+</div>
+</div><p>或者比较git记录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">git clone https://github.com/AlDanial/cloc <span class="o">&amp;&amp;</span> <span class="nb">cd</span> cloc
+cloc --diff e0041915 f1d22c29
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">       1 text file.
+       1 text file.
+       0 files ignored.
+
+github.com/AlDanial/cloc v 1.90  T=0.37 s (2.7 files/s, 7501.3 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Markdown
+ same                            0              0             31           2740
+ modified                        1              0              0              1
+ added                           0              0              0              0
+ removed                         0              0              0              0
+-------------------------------------------------------------------------------
+SUM:
+ same                            0              0             31           2740
+ modified                        1              0              0              1
+ added                           0              0              0              0
+ removed                         0              0              0              0
+-------------------------------------------------------------------------------
+</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="修改输出格式"><a href="#%e4%bf%ae%e6%94%b9%e8%be%93%e5%87%ba%e6%a0%bc%e5%bc%8f" class="header-anchor">修改输出格式</a></h1>
+<p><code>--csv</code>,<code>--md</code>,<code>--json</code>,<code>--xsl=file</code>,<code>--yaml</code>。字面意思。</p>
+
+  </main>
+</article>
+
+
+<script src="https://beaudar.lipk.org/client.js"
+        repo="brangpd/repo-for-comment"
+        issue-term="82"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+<link rel="stylesheet" href="/blog/katex/katex.min.css" />
+
+
+<script defer src="/blog/katex/katex.min.js"></script>
+
+
+<script defer src="/blog/katex/contrib/auto-render.min.js"></script>
+<script src="/blog/js/katex.js"></script>
+<footer>
+
+© <a href="mailto:brangpd@outlook.com">brangpd</a>
+</footer>
+<button onclick="topFunction()" id="toTopButton">↑↑↑</button>
+<script src="/blog/js/to_top_button.js"></script>
+<script src="/blog/js/custom.js"></script>
+</body>
+</html>

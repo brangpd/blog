@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="utf-8" />
+  <meta name="author" content="花落无声@brangpd" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CentOS | 花落无声的站点</title>
+  <link rel="stylesheet" href="/blog/css/style.css"/>
+  <link rel="stylesheet" href="/blog/css/chroma.css"/>
+  <link rel="stylesheet" href="/blog/css/fonts.css"/>
+  <link rel="stylesheet" href="/blog/css/to_top_button.css"/>
+  <link rel="stylesheet" href="/blog/abcjs/abcjs-audio.css" />
+<script defer src="/blog/abcjs/abcjs-basic-min.js"></script>
+
+
+</head>
+
+<body>
+  <nav>
+    <ul class="menu">
+      
+      <li><a href="/blog/">主页</a></li>
+      
+      <li><a href="/blog/p/">近期</a></li>
+      
+      <li><a href="/blog/pall/">全部</a></li>
+      
+      <li><a href="/blog/categories/">归档</a></li>
+      
+      <li><a href="/blog/tags/">标签</a></li>
+      
+      <li><a href="/blog/index.xml">订阅</a></li>
+      
+    </ul>
+  </nav>
+
+
+<h1 class="h0">CentOS</h1>
+
+
+
+
+
+
+<section class="list-block">
+  <div class="list-title-line">
+    <div style="float: right;">
+      
+    </div>
+    <div>
+      <a href="/blog/p/2020/08/02/centos-8-%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+        <span class="list-title">CentOS 8 网络配置文件</span>
+        
+      </a>
+    </div>
+  </div>
+  
+  <div class="list-summary">
+    
+    
+    
+    
+    <p>在使用CentOS 8作为服务器时修改网络配置的方法.</p>
+<p>配置文件见于<code>/etc/sysconfig/network-scripts/*</code>.</p>
+<p>配置文档示例:</p>
+  </div>
+  
+</section>
+
+
+<section class="list-block">
+  <div class="list-title-line">
+    <div style="float: right;">
+      
+    </div>
+    <div>
+      <a href="/blog/p/2020/08/02/kubernetes-kubeadm-%E5%BC%80%E5%B1%80%E9%85%8D%E7%BD%AE/">
+        <span class="list-title">Kubernetes kubeadm 开局配置</span>
+        
+      </a>
+    </div>
+  </div>
+  
+  <div class="list-summary">
+    
+    
+    
+    
+    <h1 id="目前版本"><a href="#%e7%9b%ae%e5%89%8d%e7%89%88%e6%9c%ac" class="header-anchor">目前版本</a></h1>
+<p>CentOS:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">uname -a 
+</code></pre></td></tr></table>
+</div>
+</div><pre><code class="language-o" data-lang="o">Linux kube1.localdomain 4.18.0-193.el8.x86_64 #1 SMP Fri May 8 10:59:10 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+</code></pre><p>Kubernetes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">kubeadm version
+</code></pre></td></tr></table>
+</div>
+</div><pre><code class="language-o" data-lang="o">kubeadm version: &amp;version.Info{Major:&quot;1&quot;, Minor:&quot;18&quot;, GitVersion:&quot;v1.18.6&quot;, GitCommit:&quot;dff82dc0de47299ab66c83c626e08b245ab19037&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2020-07-15T16:56:34Z&quot;, GoVersion:&quot;go1.13.9&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
+</code></pre>
+  </div>
+  
+</section>
+
+
+<section class="list-block">
+  <div class="list-title-line">
+    <div style="float: right;">
+      
+    </div>
+    <div>
+      <a href="/blog/p/2020/08/02/centos-8-nfs%E9%85%8D%E7%BD%AE/">
+        <span class="list-title">CentOS 8 NFS配置</span>
+        
+      </a>
+    </div>
+  </div>
+  
+  <div class="list-summary">
+    
+    
+    
+    
+    <h1 id="安装nfs"><a href="#%e5%ae%89%e8%a3%85nfs" class="header-anchor">安装NFS</a></h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">yum -y install nfs-utils
+</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="服务端"><a href="#%e6%9c%8d%e5%8a%a1%e7%ab%af" class="header-anchor">服务端</a></h1>
+<p>修改<code>/etc/exports</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-plain" data-lang="plain">/data *(rw,sync,no_subtree_check,no_root_squash)
+</code></pre></td></tr></table>
+</div>
+</div><p>说明:</p>
+<ul>
+<li><code>rw</code>/<em><code>ro</code></em>: 读写/只读</li>
+<li><code>sync</code>/<em><code>async</code></em>: 同步/异步</li>
+<li><code>no_subtree_check</code>/<code>subtree_check</code>: 用途未知</li>
+<li><code>no_root_squash</code>/<code>root_squash</code>: 对于root用户登录是否直接转成匿名用户</li>
+</ul>
+  </div>
+  
+</section>
+
+
+
+
+
+<footer>
+
+© <a href="mailto:brangpd@outlook.com">brangpd</a>
+</footer>
+<button onclick="topFunction()" id="toTopButton">↑↑↑</button>
+<script src="/blog/js/to_top_button.js"></script>
+<script src="/blog/js/custom.js"></script>
+</body>
+</html>

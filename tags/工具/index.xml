@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>工具 on 花落无声的站点</title>
+    <link>/blog/tags/%E5%B7%A5%E5%85%B7/</link>
+    <description>Recent content in 工具 on 花落无声的站点</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Tue, 01 Jun 2021 15:31:28 +0800</lastBuildDate><atom:link href="/blog/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>工作笔记：游戏开发：CLOC工具的使用</title>
+      <link>/blog/p/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/cloc%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 01 Jun 2021 15:31:28 +0800</pubDate>
+      
+      <guid>/blog/p/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/cloc%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>CLOC 仓库地址：https://github.com/AlDanial/cloc 用于代码行数的计算。输入的参数可以为文件、压缩包、目录、或者git的提交记录或者分支等等。 计算代码行数 例如有test.cpp</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes集群DNS检测工具</title>
+      <link>/blog/p/2020/08/03/kubernetes%E9%9B%86%E7%BE%A4dns%E6%A3%80%E6%B5%8B%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Mon, 03 Aug 2020 01:29:28 +0800</pubDate>
+      
+      <guid>/blog/p/2020/08/03/kubernetes%E9%9B%86%E7%BE%A4dns%E6%A3%80%E6%B5%8B%E5%B7%A5%E5%85%B7/</guid>
+      <description>(不是能直接用busybox吗) (不要在意这些细节) 直接应用: 1 2 3 4 5 6 7 8 apiVersion:v1kind:Podmetadata:name:dnsutilsspec:containers:- name:dnsutilsimage:brangpd/dnsutils</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on 花落无声的站点</title>
+    <link>/blog/tags/linux/</link>
+    <description>Recent content in Linux on 花落无声的站点</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Sat, 29 Aug 2020 22:39:13 +0800</lastBuildDate><atom:link href="/blog/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git clone提速方案</title>
+      <link>/blog/p/2020/08/29/git-clone%E6%8F%90%E9%80%9F%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Sat, 29 Aug 2020 22:39:13 +0800</pubDate>
+      
+      <guid>/blog/p/2020/08/29/git-clone%E6%8F%90%E9%80%9F%E6%96%B9%E6%A1%88/</guid>
+      <description>http(s) 形如：https://github.com/... 配置选项中似乎不存在https，可能是误传。 1 2 3 4 # 只针对github git config --global http.https://github.com.proxy socks5h://127.0.0.1:1080 # 对所有 git config --global http.proxy socks5h://127.0.0.1:1080 或直接修改~/.gitconfig： 1 2 [http &amp;#34;https://github.com&amp;#34;] proxy =</description>
+    </item>
+    
+    <item>
+      <title>CentOS 8 网络配置文件</title>
+      <link>/blog/p/2020/08/02/centos-8-%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Sun, 02 Aug 2020 15:23:05 +0800</pubDate>
+      
+      <guid>/blog/p/2020/08/02/centos-8-%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
+      <description>&lt;p&gt;在使用CentOS 8作为服务器时修改网络配置的方法.&lt;/p&gt;
+&lt;p&gt;配置文件见于&lt;code&gt;/etc/sysconfig/network-scripts/*&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;配置文档示例:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux桌面系统使用记录</title>
+      <link>/blog/p/2020/07/31/linux%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Fri, 31 Jul 2020 15:59:59 +0800</pubDate>
+      
+      <guid>/blog/p/2020/07/31/linux%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</guid>
+      <description>Ubuntu 目前环境 Ubuntu 20.04.1 amd64 GNOME 3.36.3 X11 日常相关 社交 Deepin移植了一些软件, 包括QQ, 微信, TIM(不支持Linux的屑腾讯), 百度网盘(已有官方Linux版本, (别用百度云了好吗)): http://packages.deepin.com/deepin/pool/non-free/ 其中微信没有尝试过. QQ, TI</description>
+    </item>
+    
+  </channel>
+</rss>

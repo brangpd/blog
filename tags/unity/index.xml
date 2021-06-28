@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Unity on 花落无声的站点</title>
+    <link>/blog/tags/unity/</link>
+    <description>Recent content in Unity on 花落无声的站点</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Fri, 21 May 2021 17:38:34 +0800</lastBuildDate><atom:link href="/blog/tags/unity/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>工作笔记：游戏开发：Unity脚本生命周期</title>
+      <link>/blog/p/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/unity%E8%84%9A%E6%9C%AC%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</link>
+      <pubDate>Fri, 21 May 2021 17:38:34 +0800</pubDate>
+      
+      <guid>/blog/p/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/unity%E8%84%9A%E6%9C%AC%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</guid>
+      <description>生命周期 按照以下顺序执行： 绑定 Reset：游戏对象绑定脚本时调用 初始化 Awake：脚本绑定的游戏对象被激活时执行，无论该脚本是否禁用 OnEnable：脚本启用时执行 Start：脚本启用时，在OnEna</description>
+    </item>
+    
+  </channel>
+</rss>

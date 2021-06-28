@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="utf-8" />
+  <meta name="author" content="花落无声@brangpd" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>工作笔记：游戏开发：Unity脚本生命周期 | 花落无声的站点</title>
+  <link rel="stylesheet" href="/blog/css/style.css"/>
+  <link rel="stylesheet" href="/blog/css/chroma.css"/>
+  <link rel="stylesheet" href="/blog/css/fonts.css"/>
+  <link rel="stylesheet" href="/blog/css/to_top_button.css"/>
+  <link rel="stylesheet" href="/blog/abcjs/abcjs-audio.css" />
+<script defer src="/blog/abcjs/abcjs-basic-min.js"></script>
+
+
+</head>
+
+<body>
+  <nav>
+    <ul class="menu">
+      
+      <li><a href="/blog/">主页</a></li>
+      
+      <li><a href="/blog/p/">近期</a></li>
+      
+      <li><a href="/blog/pall/">全部</a></li>
+      
+      <li><a href="/blog/categories/">归档</a></li>
+      
+      <li><a href="/blog/tags/">标签</a></li>
+      
+      <li><a href="/blog/index.xml">订阅</a></li>
+      
+    </ul>
+  </nav>
+
+<article>
+  <header class="article-meta">
+    <section class="title">
+      工作笔记：游戏开发：Unity脚本生命周期
+    </section>
+
+    
+
+    
+
+    <section>
+      
+      
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+      
+      |
+      <a href="/blog/pid/67">PID/67</a>
+      
+      
+      
+    </section>
+
+  </header>
+
+  
+  <section>标签:
+    
+    
+    
+    
+    
+    <a href="/blog/tags/unity/">Unity</a>
+    
+  </section>
+  
+
+  
+  <section>归档:
+    
+    
+    
+    
+    <a href="/blog/categories/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91">工作笔记：游戏开发</a>
+    
+  </section>
+  
+
+  <section class="description">
+    
+  </section>
+  
+  
+  <section>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#生命周期">生命周期</a></li>
+    <li><a href="#执行顺序">执行顺序</a></li>
+  </ul>
+</nav>
+  </section>
+  
+  <main>
+    
+<h1 id="生命周期"><a href="#%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f" class="header-anchor">生命周期</a></h1>
+<p>按照以下顺序执行：</p>
+<ul>
+<li>绑定
+<ul>
+<li>Reset：游戏对象绑定脚本时调用</li>
+</ul>
+</li>
+<li>初始化
+<ul>
+<li>Awake：脚本绑定的游戏对象被激活时执行，无论该脚本是否禁用</li>
+<li>OnEnable：脚本启用时执行</li>
+<li>Start：脚本启用时，在OnEnable之后调用，每个Start在每个Scene中只执行一次，执行过一次时下次不会调用</li>
+</ul>
+</li>
+<li>循环直到脚本被禁用：
+<ul>
+<li>物理循环
+<ul>
+<li>FixUpdate：每隔固定时间执行，用于物理模拟，例如力的添加</li>
+<li>OnTriggerXX，XX=[Enter/进入, Stay/停留, Exit/离开]触发器范围时执行</li>
+<li>OnCollisionXX，XX=[Enter, Stay, Exit]，物体进入、停留、离开碰撞体时执行</li>
+<li>OnMouseXX</li>
+</ul>
+</li>
+<li>逻辑循环
+<ul>
+<li>Update：每帧执行，游戏状态控制等</li>
+<li>LateUpdate：Update之后执行，共同使用，FPS中，Update执行移动，LateUpdate执行摄像头跟随</li>
+</ul>
+</li>
+<li>绘制GUI
+<ul>
+<li>OnGUI</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>禁用
+<ul>
+<li>OnDisable，重新启动时跳转到OnEnable，依次往后</li>
+</ul>
+</li>
+<li>解除绑定
+<ul>
+<li>OnDestroy</li>
+</ul>
+</li>
+</ul>
+
+<h1 id="执行顺序"><a href="#%e6%89%a7%e8%a1%8c%e9%a1%ba%e5%ba%8f" class="header-anchor">执行顺序</a></h1>
+<p>默认为栈：先进后执行。可以调节优先级（Script Execute Order），数值越低越先执行，默认为0。</p>
+
+  </main>
+</article>
+
+
+<script src="https://beaudar.lipk.org/client.js"
+        repo="brangpd/repo-for-comment"
+        issue-term="67"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+<link rel="stylesheet" href="/blog/katex/katex.min.css" />
+
+
+<script defer src="/blog/katex/katex.min.js"></script>
+
+
+<script defer src="/blog/katex/contrib/auto-render.min.js"></script>
+<script src="/blog/js/katex.js"></script>
+<footer>
+
+© <a href="mailto:brangpd@outlook.com">brangpd</a>
+</footer>
+<button onclick="topFunction()" id="toTopButton">↑↑↑</button>
+<script src="/blog/js/to_top_button.js"></script>
+<script src="/blog/js/custom.js"></script>
+</body>
+</html>
