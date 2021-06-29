@@ -51,6 +51,69 @@
 <section class="list-block">
   <div class="list-title-line">
     <div style="float: right;">
+      (2020.08.03)
+    </div>
+    <div>
+      <a href="/blog/p/2020/08/03/kubernetes%E5%AD%98%E5%82%A8/">
+        <span class="list-title">Kubernetes存储</span>
+        
+      </a>
+    </div>
+  </div>
+  
+  <div class="list-summary">
+    
+    
+    
+    
+    <h1 id="参考"><a href="#%e5%8f%82%e8%80%83" class="header-anchor">参考</a></h1>
+<p><a href="https://kubernetes.io/docs/concepts/storage/">https://kubernetes.io/docs/concepts/storage/</a></p>
+<h1 id="volumes"><a href="#volumes" class="header-anchor">Volumes</a></h1>
+<p>欲解决的问题: 持久化存储, (跨pod) 存储共享.</p>
+<p>pod在配置中说明要使用的volumes, 通过<code>.spec.volumes</code>, 说明在哪里mount, 通过<code>.spec.containers[*].volumeMounts</code>.</p>
+<p>云计算使用的各种存储工具. 所有支持的方案详见<a href="https://kubernetes.io/docs/concepts/storage/volumes/#types-of-volumes">Types of Volumes</a>. 官方直接支持的云存储方案如AWS EBS, Azure File, Azure Disk等. 此外, 像阿里云提供的云盘存储卷, NAS存储卷, 对象存储卷等, 最好在阿里云自己提供的ECS或容器服务Kubernetes版, 或者也可以装插件 (OSS外网访问成本太高不现实, 其他几个要非专有网络的服务应该要申请). 阿里云的云存储方案提供FlexVolume和CSI, 详见其<a href="https://www.alibabacloud.com/help/zh/doc-detail/157025.htm">官方文档</a>. (目前不太清楚工业界使用什么样的方案, 也不太清楚成本的估计)</p>
+<p>有一些不通过云存储而通过主机的形式, 比如直接挂载到本机node上, 或者有专门的主机(不管是真物理主机还是虚拟云主机甚至是容器, 总之可以mount到上面的文件系统).</p>
+<p>几种可能比较重要 (不一定常用, 不一定适合生产环境例如hostPath) 的卷:</p>
+<h2 id="configmap-secret"><a href="#configmap-secret" class="header-anchor">configMap, secret</a></h2>
+<p>如<a href="/blog/p/2020/08/03/kubernetes%E9%85%8D%E7%BD%AE/">配置</a>一文提及, ConfigMap与secret作为两种配置, 本身可以挂载成 &ldquo;文件/路径&rdquo; 的形式来表示 &ldquo;键/值&rdquo;. 示例如下, 更多信息见配置相关文档.</p>
+  </div>
+  
+</section>
+
+
+<section class="list-block">
+  <div class="list-title-line">
+    <div style="float: right;">
+      (2020.08.03)
+    </div>
+    <div>
+      <a href="/blog/p/2020/08/03/kubernetes%E9%85%8D%E7%BD%AE/">
+        <span class="list-title">Kubernetes配置</span>
+        
+      </a>
+    </div>
+  </div>
+  
+  <div class="list-summary">
+    
+    
+    
+    
+    <h1 id="参考"><a href="#%e5%8f%82%e8%80%83" class="header-anchor">参考</a></h1>
+<p><a href="https://kubernetes.io/docs/concepts/configuration/">https://kubernetes.io/docs/concepts/configuration/</a></p>
+<h1 id="最佳实践"><a href="#%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5" class="header-anchor">最佳实践</a></h1>
+<p>详见 <a href="https://kubernetes.io/docs/concepts/configuration/overview/">https://kubernetes.io/docs/concepts/configuration/overview/</a> .</p>
+<h1 id="configmaps"><a href="#configmaps" class="header-anchor">ConfigMaps</a></h1>
+<p>放一些不私密的键值对配置. pod可通过环境变量, 命令行参数, 或者卷中的配置文件取得ConfigMap.</p>
+<p>配置将自动但可能不及时地更新.</p>
+  </div>
+  
+</section>
+
+
+<section class="list-block">
+  <div class="list-title-line">
+    <div style="float: right;">
       (2020.08.04)
     </div>
     <div>
@@ -330,54 +393,6 @@
     
     
     形容词，是日语词类中用言的一类，具有性质或状态的描述意义。形容动词和形容词同样具有性质或状态的描述意义，但又与形容词形式不同。本文总结形容词和形容动词的用法。
-  </div>
-  
-</section>
-
-
-<section class="list-block">
-  <div class="list-title-line">
-    <div style="float: right;">
-      (2020.08.12)
-    </div>
-    <div>
-      <a href="/blog/p/%E6%97%A5%E8%AF%AD%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/%E5%8A%A8%E8%AF%8D/">
-        <span class="list-title">日语学习总结：动词</span>
-        
-      </a>
-    </div>
-  </div>
-  
-  <div class="list-summary">
-    
-    
-    
-    
-    动词，是日语词类中用言的一类，用于表示动作、行为或事件的发生，本文总结动词的用法，包括基本词类、活用、体、态等。
-  </div>
-  
-</section>
-
-
-<section class="list-block">
-  <div class="list-title-line">
-    <div style="float: right;">
-      (2020.08.15)
-    </div>
-    <div>
-      <a href="/blog/p/%E6%97%A5%E8%AF%AD%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/%E6%95%AC%E8%AF%AD/">
-        <span class="list-title">日语学习总结：敬语</span>
-        
-      </a>
-    </div>
-  </div>
-  
-  <div class="list-summary">
-    
-    
-    
-    
-    本文根据《敬语的指针》一文总结日语敬语的基本用法，包括尊敬语、谦让语、郑重语、礼貌语、美化语五种。
   </div>
   
 </section>
